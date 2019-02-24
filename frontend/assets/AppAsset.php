@@ -15,7 +15,9 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
-        'https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js'
+        'https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js',
+        YII_DEBUG ? 'https://cdn.jsdelivr.net/npm/vue/dist/vue.js' : 'https://cdn.jsdelivr.net/npm/vue',
+        'https://unpkg.com/axios/dist/axios.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
