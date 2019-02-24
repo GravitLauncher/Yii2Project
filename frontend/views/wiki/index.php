@@ -5,7 +5,7 @@
 $this->title = 'Wiki - GravitLauncher';
 $this->params['breadcrumbs'][] = "Wiki";
 ?>
-<p><b>GravitLauncher - проффессиональный лаунчер с лучшей защитой</b></p>
+<p><b>GravitLauncher - профессиональный лаунчер с лучшей защитой</b></p>
 <h2>Начало работы</h2>
 <h3>Вариант 1: Скачивание релиза</h3>
 <p>Скачиваем последний релиз с <a class="link-animated" href="https://github.com/GravitLauncher/Launcher/releases">GitHub</a> вместе с библиотеками<br>
