@@ -5,7 +5,7 @@
 $this->title = 'Wiki - GravitLauncher';
 $this->params['breadcrumbs'][] = "Wiki";
 ?>
-<p><b>GravitLauncher - проффессиональный лаунчер с лучшей защитой</b></p>
+<p><b>GravitLauncher - профессиональный лаунчер с лучшей защитой</b></p>
 <h2>Начало работы</h2>
 <h3>Вариант 1: Скачивание релиза</h3>
 <p>Скачиваем последний релиз с <a class="link-animated" href="https://github.com/GravitLauncher/Launcher/releases">GitHub</a> вместе с библиотеками<br>
@@ -120,47 +120,6 @@ $this->params['breadcrumbs'][] = "Wiki";
 2019.02.03 13:48:49 [INFO]  proguardDictRegen [nothing] - Регенерировать словарь ProGuard
 2019.02.03 13:48:49 [INFO]  config [name] [action] [more args] - Вызов метода перенастройки модуля name с действием action
 2019.02.03 13:48:49 [INFO]  logConnections [true/false] - Включить логгирование соеденений
-</pre>
-<h3>Настройка опциональных модов</h3>
-<p>Информация приведена для версии 4.3 и выше</p>
-<pre class="prettyprint">
-"updateOptional": [
-    {
-       "type": "FILE", //Тип опционального мода. Может быть FILE, CLIENTARGS, JVMARGS, CLASSPATH
-       "list": ["mods/1.7.10/NotEnoughItems-1.7.10-1.0.5.118-universal.jar"], //Список файлов или аргументов
-       "info": "Мод, показывающий рецепты", //Описание
-       "visible": true, //Видимость
-       "permissions": 0, //Маска привилегий. 0 - мод для всех, 1 - только для админов.
-       "name": "NotEnoughItems" //Имя
-    },
-    {
-       "type": "FILE",
-       "list": ["mods/Waila_1.5.10_1.7.10.jar"],
-       "info": "Мод, показывающий дополнительную информацию при наведении на блок",
-       "name": "Walia",
-       "permissions": 0,
-       "visible": true,
-       "dependenciesFile": [{"name":"NotEnoughItems"/* Имя зависимого мода */, "type": "FILE" /* Тип зависимого мода */}],
-       "conflictFile": [{"name":"ClientFixer"/* Имя конфликтующего мода */, "type": "FILE" /* Тип конфликтующего мода */}],
-       "subTreeLevel": 2  //Смещение относительно первого мода. Используется для создания визуального отображения дерева зависимостей
-    },
-    {
-       "type": "FILE",
-       "list": ["mods/clientfixer-1.0.jar"],
-       "info": "Мод, исправляющий шрифты",
-       "permissions": 0,
-       "visible": true,
-       "name": "ClientFixer"
-    },
-    {
-       "type": "FILE",
-       "list": ["mods/1.7.10/OptiFine_1.7.10_HD_U_E7.jar"],
-       "info": "Улучшение производительности",
-       "permissions": 0,
-       "visible": true,
-       "name": "OptiFine HD"
-    }
-  ],
 </pre>
 <h3>Интеграция с systemd</h3>
 <p>Systemd - стандарт в мире дистрибутивов Linux. Ниже привожу .service файлы для лаунчсервера и сервера Minecraft.<br>
