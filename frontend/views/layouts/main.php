@@ -43,6 +43,8 @@ AppAsset::register($this);
             ['label' => 'Настройка AuthHandler', 'url' => ['/wiki/page', 'page' => 'authhandler']],
             ['label' => 'Настройка HWIDHandler', 'url' => ['/wiki/page', 'page' => 'hwidhandler']],
             ['label' => 'Настройка ServerWrapper', 'url' => ['/wiki/page', 'page' => 'serverwrapper']],
+            ['label' => 'Настройка Опциональных модов', 'url' => ['/wiki/page', 'page' => 'optionalmods']],
+            ['label' => 'Написание модулей', 'url' => ['/wiki/page', 'page' => 'modules']],
         ]
         ],
         ['label' => 'О нас', 'url' => ['/site/about']],
