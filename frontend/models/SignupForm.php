@@ -20,22 +20,40 @@ class SignupForm extends Model
      */
     public function rules()
     {
-        return [
-            ['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+        if (!YII_DEBUG) {
+            return [
+                ['username', 'trim'],
+                ['username', 'required'],
+                ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+                ['username', 'string', 'min' => 2, 'max' => 255],
 
-            ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
-            ['reCaptcha', \himiklab\yii2\recaptcha\ReCaptchaValidator::class],
+                ['email', 'trim'],
+                ['email', 'required'],
+                ['email', 'email'],
+                ['email', 'string', 'max' => 255],
+                ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+                ['reCaptcha', \himiklab\yii2\recaptcha\ReCaptchaValidator::class],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6],
-        ];
+                ['password', 'required'],
+                ['password', 'string', 'min' => 6],
+            ];
+        } else {
+            return [
+                ['username', 'trim'],
+                ['username', 'required'],
+                ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+                ['username', 'string', 'min' => 2, 'max' => 255],
+
+                ['email', 'trim'],
+                ['email', 'required'],
+                ['email', 'email'],
+                ['email', 'string', 'max' => 255],
+                ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+
+                ['password', 'required'],
+                ['password', 'string', 'min' => 6],
+            ];
+        }
     }
 
     /**
