@@ -130,6 +130,7 @@ $this->params['breadcrumbs'][] = "AuthProvider";
 }
 </pre>
 <h3>Способ mojang</h3>
+<p><b>Начиная с 5.0 этот способ вынесен в модуль LegacySupport</b></p>
 <p>Выполняет запрос к веб серверам mojang для проверки логина-пароля</p>
 <pre class="prettyprint">
 "authProvider": [

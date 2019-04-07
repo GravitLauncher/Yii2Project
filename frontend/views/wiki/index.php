@@ -14,13 +14,16 @@ $this->params['breadcrumbs'][] = "Wiki";
 <h3>Вариант 2: Скрипт установки</h3>
 <p>Выполните в консоли <span class="codes">curl -s http://mirror.gravitlauncher.ml/setup.sh | sh</span></p>
 <p>Запускаем лаунчсервер командой <span class="codes">java -javaagent:LaunchServer.jar -jar LaunchServer.jar</span></p>
+<p>Некоторые shell некорреткно обрабатывают ввод при использовании этой команды. Если такое произошло с вами - скачайте setup.sh самостоятельно и запустите его</p>
+<p>Перед установкой проверьте наличие <b>unzip</b> и <b>curl</b> в вашей системе</p>
 <h3>Вариант 3: Сборка из исходников</h3>
 <p>Открываем репозиторий на <a class="link-animated" href="https://github.com/GravitLauncher/Launcher">GitHub</a>, жмем <span class="codes">Clone or Download</span><br>
     Выполняем <span class="codes">git clone https://github.com/GravitLauncher/Launcher.git</span> или скачиваем zip архив с исходниками<br>
-    Если вы хотите собрать модули, то выполните <span>git submodule update</span><br>
+    <b>Если у вас не настроены SSH ключи для доступа к GitHub вам нужно изменить в файле .gitmodules <span>git@github.com:</span> на <span>https://github.com/</span></b><br>
+    Обязательно выполните <span>git submodule update</span><br>
     Устанавливаем <a class="link-animated" href="https://www.oracle.com/technetwork/java/javase/downloads/2133151">JDK</a><br>
-    Открываем в консоли папку с исходниками и выполняем <span class="codes">gradlew.bat build</span>(Windows) <span class="codes">gradlew build</span>(Linux)</p>
-<p>Готовый результат появится в <span class="codes">LaunchServer/build/libs</span>. Туда же будут скопированы все необходимые библиотеки, кроме Launch4J, его нужно будет поставить отдельно.</p>
+    Открываем в консоли папку с исходниками и выполняем <span class="codes">gradlew.bat build</span>(Windows) <span class="codes">./gradlew build</span>(Linux)</p>
+<p>Готовый результат появится в <span class="codes">LaunchServer/build/libs</span>. Туда же будут скопированы все необходимые библиотеки</p>
 <p>Запускаем лаунчсервер командой <span class="codes">java -javaagent:LaunchServer.jar -jar LaunchServer.jar</span></p>
 <hr>
 <h2>Рекомендуемые настройки безопасности для проектов</h2>
@@ -34,92 +37,153 @@ $this->params['breadcrumbs'][] = "Wiki";
 <p></p>
 <pre class="prettyprint">
 {
-  "port": 7240, //Порт, который будет слушать лаунчсервер
-  "address": "localhost", //Адрес, к которому будут подключаться клиенты. Как правило это внешний адрес вашей VDS
-  "bindAddress": "0.0.0.0", //Адрес, который будет прослушивать лаунчсервер. Не меняйте без необходимости
-  "projectName": "MyProjectName", //Имя вашего проекта
+  "legacyPort": 7240,
+  "legacyAddress": "localhost",
+  "legacyBindAddress": "0.0.0.0",
+  "projectName": "TestProjectName", //Имя вашего проекта
   "mirrors": [
-    "http://mirror.gravitlauncher.ml/" //Зеркало, с которого будет скачиваться assets и client командами ownloadAsset/downloadClient
+    "http://mirror.gravitlauncher.ml/", //Зеркало, с которого будет скачиваться assets и client командами downloadAsset/downloadClient
+    "https://mirror.gravit.pro/"
   ],
-  "binaryName": "Launcher", //Имя jar и exe после сборки
+  "binaryName": "Launcher", //Имя jar и exe файла
   "env": "STD", //Окружение лаунчсервера
   //DEV - на текущий момент аналогичен DEBUG, но в дальнейшем в этом режиме можно будет видеть особые отладочные сообщения
   //DEBUG - по умолчанию включен режим отладки
   //STD - стандартная полтитка. Дебаг включается -Dlauncher.debug=true, stacktrace -Dlauncher.stacktrace=true
   //PROD - Запрет установки флагов debug и stacktrace. Никакого отладочного вывода вы не получите
-  "threadCount": 4, //Параметры производительности. Не трогать
-  "threadCoreCount": 0, //Параметры производительности. Не трогать
+  "auth": [
+    {
+      "provider": { //AuthProvider, отвечает за проверку логина и пароля
+        "message": "Настройте authProvider",
+        "type": "accept"
+      },
+      "handler": { //AuthHandler, отвечает за UUID, checkServer и joinServer
+        "type": "memory"
+      },
+      "textureProvider": { //textureProvider, отвечает за сикны и плащи
+        "skinURL": "http://example.com/skins/%username%.png",
+        "cloakURL": "http://example.com/cloaks/%username%.png",
+        "type": "request"
+      },
+      "name": "std", //Имя конфигурации.
+      "isDefault": true //Конфигурация по умолчанию
+    }
+  ],
+  "protectHandler": { //Защита, отвечает за генерацию токена к нативной библиотеке защиты
+    "type": "none"
+  },
+  "permissionsHandler": { //PermissionsHandler, отвечает за права аккаунтов: canServer/canAdmin/canBot
+    "filename": "permissions.json",
+    "type": "json"
+  },
+  "hwidHandler": { //HWIDHandler, отвечает за бан по HWID
+    "type": "accept"
+  },
+  "components": { //Компоненты, которые можно включить или выключить. Так же здесь настраиваются некоторые модули
+    "authLimiter": { //Лимит запросов на авторизацию
+      "rateLimit": 3,
+      "rateLimitMilis": 8000,
+      "message": "Превышен лимит авторизаций",
+      "excludeIps": [],
+      "component": "authLimiter"
+    }
+  },
+  "threadCount": 4,
+  "threadCoreCount": 0,
   "launch4j": {
-    "enabled": false, //Включение сборки EXE через Launch4J
+    "enabled": false, //Включение Launch4J
     "productName": "GravitLauncher",
-    "productVer": "4.3.0.0",
-    "fileDesc": "GravitLauncher 4.3.0",
-    "fileVer": "4.3.0.0",
+    "productVer": "5.0.0.0",
+    "fileDesc": "GravitLauncher 5.0.0",
+    "fileVer": "5.0.0.0",
     "internalName": "Launcher",
     "copyright": "© GravitLauncher Team",
     "trademarks": "This product is licensed under GPLv3",
     "txtFileVersion": "%s, build %d",
     "txtProductVersion": "%s, build %d"
   },
-  "compress": false, //Сжатие файлов при передаче
-  "authRateLimit": 0, //Максимальное колличество попыток авторизации
-  "authRateLimitMilis": 0, //Время "бана" IP при исчерпании попыток
-  "authRejectString": "Превышен лимит авторизаций", //Сообщение при превышении лимита
-  "whitelistRejectString": "Вас нет в белом списке", //Сообщение при отсутствии пользователя в белом списке
+  "netty": {
+    "clientEnabled": true, //Не используется в 5.0, всегда true
+    "launcherURL": "http://localhost:9274/Launcher.jar", //URL для скачивания jar версии лаунчера
+    "downloadURL": "http://localhost:9274/%dirname%/", //URL для скачивания диреткории dirname
+    "launcherEXEURL": "http://localhost:9274/Launcher.exe", //URL для скачивания exe версии лаунчера
+    "address": "ws://localhost:9274/api", //Адрес API, по которому будет происходить авторизация и весь оставшийся обмен данными
+    "performance": {
+      "bossThread": 2, //Колличество потоков, принимающих соеденение
+      "workerThread": 8 //Колличество потоков, обрабатывающих запросы
+    },
+    "binds": [ //Список адресов для bind
+      {
+        "address": "0.0.0.0",
+        "port": 9274
+      }
+    ]
+  },
+  "compress": false, //Сжатие файлов при передаче(LEGACY)
+  "whitelistRejectString": "Вас нет в белом списке",
   "genMappings": false, //Генерация маппингов ProGuard. Помогает понять что пошло не так
   "isUsingWrapper": false, //Активация врапперов. Необходима для новой нативной защиты
   "isDownloadJava": false, //Скачивание своей JVM (требуется правка рантайма)
   "isWarningMissArchJava": true, //Предупреждения о неверной разрядности Java
   "enabledProGuard": true, //Активировать ProGuard
   "stripLineNumbers": true, //С помощью ASM убирать номера строк
-  "deleteTempFiles": true, //Удалять временные файлы после сборки(папка build)
+  "enableRadon": true, //Включение обфускатора Radon
+  "deleteTempFiles": true, //Удаление временных файлов
   "enableRcon": false, //Включение удаленного доступа
-  "startScript": "./start.sh", //Скрипт, который выполняется при команде restart
-  "updatesNotify": true //Уведомлять о новой версии
+  "startScript": "./start.sh" //Скрипт, выполняющийся при команде restart
 }
+
 </pre>
 <p>P.S. В json нет коментариев. <b>Не пытайтесь копировать этот конфиг себе</b></p>
 <h2>Команды LaunchServer</h2>
 <p>Существует много команд лаунчсервера, которые можно выполнять из консоли</p>
 <pre class="prettyprint">
-2019.02.03 13:48:49 [INFO]  unindexAsset dir index output-dir - Деиндексировать папку с ассетами (1.7.10+)
-2019.02.03 13:48:49 [INFO]  syncUpdates [subdirs...] - Синхронизировать папку обновлений
-2019.02.03 13:48:49 [INFO]  serverStatus [nothing] - Вывод информации о состоянии сервера
-2019.02.03 13:48:49 [INFO]  auth login password - Проверка авторизации
-2019.02.03 13:48:49 [INFO]  dumpSessions [load/unload] [filename] - Загрузка и выгрузка сессий.Можно использовать для сохранения авторизации клиентов при рестарте лаунчсервера
-2019.02.03 13:48:49 [INFO]  configList [name] - Вывести все модули, которые можно перенастроить без перезапуска LaunchServer
-2019.02.03 13:48:49 [INFO]  ban [username] - Забанить username по HWID
-2019.02.03 13:48:49 [INFO]  reload [name] - Перезагрузить конфигурацию name
-2019.02.03 13:48:49 [INFO]  dumpEntryCache [load/unload] [filename] - Загрузка и выгрузка CachedAuthHandler
-2019.02.03 13:48:49 [INFO]  usernameToUUID username - Конвертировать username в UUID
-2019.02.03 13:48:49 [INFO]  proguardClean [nothing] - Пересоздать конфигурацию ProGuard
-2019.02.03 13:48:49 [INFO]  gc [nothing] - Запуск Garbage Collection
-2019.02.03 13:48:49 [INFO]  indexAsset dir index output-dir - Индексировать папку с ассетами (1.7.10+)
-2019.02.03 13:48:49 [INFO]  downloadClient version dir - Скачивание клиенета с зеркала
-2019.02.03 13:48:49 [INFO]  debug [true/false] (true/false) - Включение/выключение debug/stacktrace
-2019.02.03 13:48:49 [INFO]  test [nothing] - Тестовая команда. test start запускает Netty сервер
-2019.02.03 13:48:49 [INFO]  restart [nothing] - Перезапуск LaunchServer
-2019.02.03 13:48:49 [INFO]  reloadList  - Вывести все конфигурации, которые можно перезагрузить без перезапуска LaunchServer
-2019.02.03 13:48:49 [INFO]  clear [nothing] - Почистить окно терминала
-2019.02.03 13:48:49 [INFO]  reloadAll  - Перезагрузить все конфигурации
-2019.02.03 13:48:49 [INFO]  configHelp [name] - Вывести помощь по конфигурации модуля name
-2019.02.03 13:48:49 [INFO]  proguardMappingsRemove [nothing] - Удалить маппинги ProGuard
-2019.02.03 13:48:49 [INFO]  loadModule [jar] - Загрузка модуля по полному путю до jar
-2019.02.03 13:48:49 [INFO]  version [nothing] - Print LaunchServer version
-2019.02.03 13:48:49 [INFO]  syncProfiles [nothing] - Синхронизировать папку профилей
-2019.02.03 13:48:49 [INFO]  modules [nothing] - Вывести все модули
-2019.02.03 13:48:49 [INFO]  help [command name] - Вывод справки
-2019.02.03 13:48:49 [INFO]  syncBinaries [nothing] - Синхронизировать jar и exe
-2019.02.03 13:48:49 [INFO]  unban [username] - разбанить username по HWID
-2019.02.03 13:48:49 [INFO]  stop [nothing] - Остановить LaunchServer
-2019.02.03 13:48:49 [INFO]  build [nothing] - Собрать jar и exe лаунчера
-2019.02.03 13:48:49 [INFO]  rebind [nothing] - Пересоздать серверный сокет
-2019.02.03 13:48:49 [INFO]  uuidToUsername uuid - Преобразование UUID в username
-2019.02.03 13:48:49 [INFO]  downloadAsset version dir - Скачать assets с зеркала
-2019.02.03 13:48:49 [INFO]  swapAuthProvider [index] [accept/reject/undo] [message(for reject)] - Смена AuthProvider, например swapAuthProvider reject Технические работы
-2019.02.03 13:48:49 [INFO]  proguardDictRegen [nothing] - Регенерировать словарь ProGuard
-2019.02.03 13:48:49 [INFO]  config [name] [action] [more args] - Вызов метода перенастройки модуля name с действием action
-2019.02.03 13:48:49 [INFO]  logConnections [true/false] - Включить логгирование соеденений
+2019.04.07 21:35:31 [INFO] Command 'help'
+2019.04.07 21:35:31 [INFO]  uuidtousername uuid auth_id - Convert player UUID to username
+2019.04.07 21:35:31 [INFO]  auth login password auth_id - Try to auth with specified login and password
+2019.04.07 21:35:31 [INFO]  dumpentrycache [load/unload] [auth_id] [filename] - Load or unload AuthHandler Entry cache
+2019.04.07 21:35:31 [INFO]  serverstatus [nothing] - Check server status
+2019.04.07 21:35:31 [INFO]  reloadall  - Reload all provider/handler/module config
+2019.04.07 21:35:31 [INFO]  proguarddictregen [nothing] - Regenerates proguard dictonary
+2019.04.07 21:35:31 [INFO]  checkinstall [nothing] - null
+2019.04.07 21:35:31 [INFO]  ban [username] - Ban username for HWID
+2019.04.07 21:35:31 [INFO]  dumpsessions [load/unload] [filename] - Load or unload sessions
+2019.04.07 21:35:31 [INFO]  gethwid [username] - get HWID from username
+2019.04.07 21:35:31 [INFO]  multi [nothing] - null
+2019.04.07 21:35:31 [INFO]  getpermissions [username] - print username permissions
+2019.04.07 21:35:31 [INFO]  usernametouuid username auth_id - Convert player username to UUID
+2019.04.07 21:35:31 [INFO]  reload [name] - Reload provider/handler/module config
+2019.04.07 21:35:31 [INFO]  downloadclient version dir - Download client dir
+2019.04.07 21:35:31 [INFO]  confighelp [name] - print help for config command
+2019.04.07 21:35:31 [INFO]  gc [nothing] - Perform Garbage Collection and print memory usage
+2019.04.07 21:35:31 [INFO]  getmodulus [nothing] - null
+2019.04.07 21:35:31 [INFO]  givepermission [username] [permission] [true/false] - give permissions
+2019.04.07 21:35:31 [INFO]  debug [true/false] (true/false) - Enable or disable debug and stacktrace logging at runtime
+2019.04.07 21:35:31 [INFO]  test [nothing] - Test command. Only developer!
+2019.04.07 21:35:31 [INFO]  restart [nothing] - Restart LaunchServer
+2019.04.07 21:35:31 [INFO]  loadmodule [jar] - Module jar file
+2019.04.07 21:35:31 [INFO]  clear [nothing] - Clear terminal
+2019.04.07 21:35:31 [INFO]  syncprofiles [nothing] - Resync profiles dir
+2019.04.07 21:35:31 [INFO]  downloadasset version dir - Download asset dir
+2019.04.07 21:35:31 [INFO]  version [nothing] - Print LaunchServer version
+2019.04.07 21:35:31 [INFO]  modules [nothing] - get all modules
+2019.04.07 21:35:31 [INFO]  unindexasset dir index output-dir - Unindex asset dir (1.7.10+)
+2019.04.07 21:35:31 [INFO]  help [command name] - Print command usage
+2019.04.07 21:35:31 [INFO]  unban [username] - Unban username for HWID
+2019.04.07 21:35:31 [INFO]  component [action] [component name] [more args] - component manager
+2019.04.07 21:35:31 [INFO]  eval [line] - Eval javascript in server script engine
+2019.04.07 21:35:31 [INFO]  stop [nothing] - Stop LaunchServer
+2019.04.07 21:35:31 [INFO]  logconnections [true/false] - Enable or disable logging connections
+2019.04.07 21:35:31 [INFO]  syncbinaries [nothing] - Resync launcher binaries
+2019.04.07 21:35:31 [INFO]  build [nothing] - Build launcher binaries
+2019.04.07 21:35:31 [INFO]  rebind [nothing] - Rebind server socket
+2019.04.07 21:35:31 [INFO]  reloadlist  - print reloadable configs
+2019.04.07 21:35:31 [INFO]  indexasset dir index output-dir - Index asset dir (1.7.10+)
+2019.04.07 21:35:31 [INFO]  syncupdates [subdirs...] - Resync updates dir
+2019.04.07 21:35:31 [INFO]  configlist [name] - print help for config command
+2019.04.07 21:35:31 [INFO]  proguardclean [nothing] - Resets proguard config
+2019.04.07 21:35:31 [INFO]  config [name] [action] [more args] - call reconfigurable action
+2019.04.07 21:35:31 [INFO]  proguardmappingsremove [nothing] - Removes proguard mappings (if you want to gen new mappings).
 </pre>
 <h3>Интеграция с systemd</h3>
 <p>Systemd - стандарт в мире дистрибутивов Linux. Ниже привожу .service файлы для лаунчсервера и сервера Minecraft.<br>
