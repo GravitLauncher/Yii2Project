@@ -42,14 +42,14 @@ $this->params['breadcrumbs'][] = "AuthHandler";
 <p>Для автоматического создания нужных полей в таблице можно воспрользоваться SQL запросом</p>
 <pre class="prettyprint">
 -- Добавляет недостающие поля в таблицу
- ALTER TABLE users
- ADD COLUMN uuid CHAR(36) UNIQUE DEFAULT NULL,
- ADD COLUMN access_token CHAR(32) DEFAULT NULL,
- ADD COLUMN server_id VARCHAR(41) DEFAULT NULL;
+ ALTER TABLE `users`
+ ADD COLUMN `uuid` CHAR(36) UNIQUE DEFAULT NULL,
+ ADD COLUMN `access_token` CHAR(32) DEFAULT NULL,
+ ADD COLUMN `server_id` VARCHAR(41) DEFAULT NULL;
 
  -- Создаёт триггер на генерацию UUID для новых пользователей
  DELIMITER //
- CREATE TRIGGER setUUID BEFORE INSERT ON users
+ CREATE TRIGGER setUUID BEFORE INSERT ON `users`
  FOR EACH ROW BEGIN
  IF NEW.uuid IS NULL THEN
  SET NEW.uuid = UUID();
@@ -60,4 +60,14 @@ $this->params['breadcrumbs'][] = "AuthHandler";
  -- Генерирует UUID для уже существующих пользователей
  UPDATE users SET uuid=(SELECT UUID()) WHERE uuid IS NULL;
 </pre>
-
+<h3>Способ mojang</h3>
+<p><b>Начиная с 5.0 этот способ вынесен в модуль LegacySupport</b></p>
+<p>Обратите внимание: при использовании этого способа НЕ РЕКОМЕНДУЕТСЯ привязывать ваш сервер к лаунчеру.</p>
+<p>Выполняет запрос к веб серверам mojang для получения UUID</p>
+<pre class="prettyprint">
+"authHandler": [
+ {
+     "type": "mojang"
+ }
+]
+</pre>
