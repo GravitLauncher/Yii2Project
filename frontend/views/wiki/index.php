@@ -8,8 +8,9 @@ $this->params['breadcrumbs'][] = "Wiki";
 <p><b>GravitLauncher - профессиональный лаунчер с лучшей защитой</b></p>
 <h2>Начало работы</h2>
 <h3>Вариант 1: Скачивание релиза</h3>
-<p>Скачиваем последний релиз с <a class="link-animated" href="https://github.com/GravitLauncher/Launcher/releases">GitHub</a> вместе с библиотеками<br>
+<p>Скачиваем последний релиз с <a class="link-animated" href="https://mirror.gravit.pro/build">зеркала</a> вместе с библиотеками<br>
     Распаковываем в нужную папку</p>
+<p>Версии до 5.0.0b6 можно скачать на <a class="link-animated" href="https://github.com/GravitLauncher/Launcher/releases">GitHub</a></p>
 <p>Запускаем лаунчсервер командой <span class="codes">java -javaagent:LaunchServer.jar -jar LaunchServer.jar</span></p>
 <h3>Вариант 2: Скрипт установки</h3>
 <p>Выполните в консоли <span class="codes">curl -s http://mirror.gravitlauncher.ml/setup.sh | sh</span></p>
@@ -20,7 +21,7 @@ $this->params['breadcrumbs'][] = "Wiki";
 <p>Открываем репозиторий на <a class="link-animated" href="https://github.com/GravitLauncher/Launcher">GitHub</a>, жмем <span class="codes">Clone or Download</span><br>
     Выполняем <span class="codes">git clone https://github.com/GravitLauncher/Launcher.git</span> или скачиваем zip архив с исходниками<br>
     <b>Если у вас не настроены SSH ключи для доступа к GitHub вам нужно изменить в файле .gitmodules <span>git@github.com:</span> на <span>https://github.com/</span></b><br>
-    Обязательно выполните <span>git submodule update</span><br>
+    Обязательно выполните <span>git submodule update --init</span><br>
     Устанавливаем <a class="link-animated" href="https://www.oracle.com/technetwork/java/javase/downloads/2133151">JDK</a><br>
     Открываем в консоли папку с исходниками и выполняем <span class="codes">gradlew.bat build</span>(Windows) <span class="codes">./gradlew build</span>(Linux)</p>
 <p>Готовый результат появится в <span class="codes">LaunchServer/build/libs</span>. Туда же будут скопированы все необходимые библиотеки</p>
@@ -185,6 +186,14 @@ $this->params['breadcrumbs'][] = "Wiki";
 2019.04.07 21:35:31 [INFO]  config [name] [action] [more args] - call reconfigurable action
 2019.04.07 21:35:31 [INFO]  proguardmappingsremove [nothing] - Removes proguard mappings (if you want to gen new mappings).
 </pre>
+<h3>Команды Launcher. Разблокировка консоли. Удаленное управление</h3>
+<p>Начиная с 5.0.0 в лаунчере появилась консоль, которую можно открыть после авторизации при клике справа на значек консоли.<br>
+В этой консоли можно выполнять команды, недоступные из GUI. По умолчанию консоль заблокирована. Для её разблокировки используется команда <span>unlock [key]</span><br>
+На момент выхода <span>5.0.0b6</span> разблокировать консоль можно любой строкой, например <span>unlock 1</span>. В дальнейшем процедура разблокировки усложнится<br>
+Разблокировав консоль вы получите команды, недоступные ранее, в том числе возможность удаленно управлять лаунчсервером(при наличии прав)<br>
+Что бы удаленно управлять лаунчсервером ваш аккаунт должен обладать правом canAdmin.<br>
+<span>loglisten</span> - связывает вывод логов лаунчсервера с выводом логов лаунчера. Позволяет удалённо просматривать лог<br>
+<span>exec</span> - выполняет команду на стороне лаунчсервера. Если у вас не включен <span>loglisten</span> вывод команды вы не увидите</p>
 <h3>Интеграция с systemd</h3>
 <p>Systemd - стандарт в мире дистрибутивов Linux. Ниже привожу .service файлы для лаунчсервера и сервера Minecraft.<br>
     Для правильного порядка загрузки с systemd требуется установить модуль SystemdNotify</p>

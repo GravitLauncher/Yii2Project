@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = "AuthHandler";
  DELIMITER ;
 
  -- Генерирует UUID для уже существующих пользователей
- UPDATE users SET uuid=(SELECT UUID()) WHERE uuid IS NULL;
+ UPDATE `users` SET uuid=(SELECT UUID()) WHERE uuid IS NULL;
 </pre>
 <h3>Способ mojang</h3>
 <p><b>Начиная с 5.0 этот способ вынесен в модуль LegacySupport</b></p>
