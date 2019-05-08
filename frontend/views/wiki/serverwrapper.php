@@ -9,8 +9,8 @@ $this->title = 'ServerWrapper - Wiki - GravitLauncher';
 $this->params['breadcrumbs'][] = "ServerWrapper";
 ?>
 <h2>Поддерживаемые ядра серверов</h2>
-<p>Протестированные ядра: Sponge, Thermos, KCaldron, Spigot/Bukkit. Некоторые можно скачать тут: <a class="link-animated" href="http://mirror.gravitlauncher.ml/servers/">mirror.gravitlauncher.ml</a><br></p>
-<p>Непротестированы: Atom, Ultramine, BungeeCord и другие</p>
+<p>Протестированные ядра: Sponge, Thermos, KCaldron, UltraMine, Waterfall/BungeeCoed, Spigot/Bukkit. Некоторые можно скачать тут: <a class="link-animated" href="http://mirror.gravitlauncher.ml/servers/">mirror.gravitlauncher.ml</a><br></p>
+<p>Непротестированы: Atom и другие</p>
 <h2>Скрипт развертывания ServerWrapper</h2>
 <p>В 5.0.0 введен новый способ установки ServerWrapper'а - с помощью скрипта установки. Для его запуска выполните:</p>
 <pre class="prettyprint">

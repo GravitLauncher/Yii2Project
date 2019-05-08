@@ -44,6 +44,7 @@ AppAsset::register($this);
             ['label' => 'Настройка HWIDHandler', 'url' => ['/wiki/page', 'page' => 'hwidhandler']],
             ['label' => 'Настройка ServerWrapper', 'url' => ['/wiki/page', 'page' => 'serverwrapper']],
             ['label' => 'Настройка Опциональных модов', 'url' => ['/wiki/page', 'page' => 'optionalmods']],
+            ['label' => 'Проксирование/Netty', 'url' => ['/wiki/page', 'page' => 'nettyconfig']],
             ['label' => 'Написание модулей', 'url' => ['/wiki/page', 'page' => 'modules']],
         ]
         ],
