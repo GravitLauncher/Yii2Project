@@ -34,9 +34,13 @@ class MinecraftController extends ActiveController
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $postarr = json_decode(Yii::$app->getRequest()->getRawBody(), true);
         if(!$postarr) return array('status' => 'ERROR','error' => "request incorrect");
-        $login = $postarr["login"];
-        $pass = $postarr["pass"];
+        $login = $postarr["username"];
+        $pass = $postarr["password"];
         $model = User::findByUsername($login);
+        if($model == null)
+        {
+            return array('status' => 'ERROR','error' => "username or password incorrect");
+        }
         if($model->validatePassword($pass))
         {
             if($model->status == User::STATUS_BANNED) return array('status' => 'ERROR','error' => "You Banned");
