@@ -45,6 +45,7 @@ AppAsset::register($this);
             ['label' => 'Настройка ServerWrapper', 'url' => ['/wiki/page', 'page' => 'serverwrapper']],
             ['label' => 'Настройка Опциональных модов', 'url' => ['/wiki/page', 'page' => 'optionalmods']],
             ['label' => 'Проксирование/Netty', 'url' => ['/wiki/page', 'page' => 'nettyconfig']],
+            ['label' => 'Модификация runtime', 'url' => ['/wiki/page', 'page' => 'modifyruntime']],
             ['label' => 'Написание модулей', 'url' => ['/wiki/page', 'page' => 'modules']],
         ]
         ],
