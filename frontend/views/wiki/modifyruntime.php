@@ -5,7 +5,7 @@
  * Date: 23.02.19
  * Time: 19:49
  */
-$this->title = 'HWIDHandler - Wiki - GravitLauncher';
+$this->title = 'Modify Runtime - Wiki - GravitLauncher';
 $this->params['breadcrumbs'][] = "Modify Runtime";
 ?>
 <h2>Создание своего дизайна в JavaFX Scene Builder</h2>
