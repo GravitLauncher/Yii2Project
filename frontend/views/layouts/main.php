@@ -55,6 +55,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Авторизация', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'Личный кабинет', 'url' => ['/cabinet/index']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
