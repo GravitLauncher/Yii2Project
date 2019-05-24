@@ -47,7 +47,7 @@ class CabinetController extends Controller
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if ($model->upload(Yii::$app->user->identity->username, false)) {
                 // file is uploaded successfully
-                return $this->redirect('cabinet');
+                return $this->redirect(['cabinet/index']);
             }
         }
     }
@@ -60,7 +60,7 @@ class CabinetController extends Controller
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if ($model->upload(Yii::$app->user->identity->username, true)) {
                 // file is uploaded successfully
-                return $this->redirect('cabinet');
+                return $this->redirect(['cabinet/index']);
             }
         }
     }
