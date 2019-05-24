@@ -24,8 +24,8 @@ use yii\widgets\ActiveForm;
     // Control objects with your mouse!
     let control = skinview3d.createOrbitControls(skinViewer);
     control.enableRotate = true;
-    control.enableZoom = false;
-    control.enablePan = false;
+    control.enableZoom = true;
+    control.enablePan = true;
 
     skinViewer.animation = new skinview3d.CompositeAnimation();
 
