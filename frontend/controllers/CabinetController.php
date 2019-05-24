@@ -19,7 +19,7 @@ class CabinetController extends Controller
                     [
                         'actions' => ['uploadskin', 'uploadcloak'],
                         'allow' => true,
-                        'roles' => ['?'],
+                        'roles' => ['@'],
                     ],
                 ],
             ],
