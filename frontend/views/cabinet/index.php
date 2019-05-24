@@ -1,9 +1,9 @@
 <?php
 use yii\widgets\ActiveForm;
 ?>
+<div id="skin_container"></div>
 <script src="js\three.min.js"></script>
 <script src="js\skinViewer.js"></script>
-<div id="skin_container"></div>
 <script>
     let skinViewer = new skinview3d.SkinViewer({
         domElement: document.getElementById("skin_container"),
