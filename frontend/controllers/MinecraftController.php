@@ -44,7 +44,8 @@ class MinecraftController extends ActiveController
         if($model->validatePassword($pass))
         {
             if($model->status == User::STATUS_BANNED) return array('status' => 'ERROR','error' => "You Banned");
-            return array('status' => 'OK', "username" => $login);
+            $permissions = 2; //canServer
+            return array('status' => 'OK', "username" => $login, "permissions" => $permissions);
         }
         else
             return array('status' => 'ERROR','error' => "username or password incorrect");
