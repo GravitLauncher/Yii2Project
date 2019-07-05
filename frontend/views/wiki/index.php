@@ -150,52 +150,59 @@ $this->params['breadcrumbs'][] = "Wiki";
 <h2>Команды LaunchServer</h2>
 <p>Существует много команд лаунчсервера, которые можно выполнять из консоли</p>
 <pre class="prettyprint">
-2019.04.07 21:35:31 [INFO] Command 'help'
-2019.04.07 21:35:31 [INFO]  uuidtousername uuid auth_id - Convert player UUID to username
-2019.04.07 21:35:31 [INFO]  auth login password auth_id - Try to auth with specified login and password
-2019.04.07 21:35:31 [INFO]  dumpentrycache [load/unload] [auth_id] [filename] - Load or unload AuthHandler Entry cache
-2019.04.07 21:35:31 [INFO]  serverstatus [nothing] - Check server status
-2019.04.07 21:35:31 [INFO]  reloadall  - Reload all provider/handler/module config
-2019.04.07 21:35:31 [INFO]  proguarddictregen [nothing] - Regenerates proguard dictonary
-2019.04.07 21:35:31 [INFO]  checkinstall [nothing] - null
-2019.04.07 21:35:31 [INFO]  ban [username] - Ban username for HWID
-2019.04.07 21:35:31 [INFO]  dumpsessions [load/unload] [filename] - Load or unload sessions
-2019.04.07 21:35:31 [INFO]  gethwid [username] - get HWID from username
-2019.04.07 21:35:31 [INFO]  multi [nothing] - null
-2019.04.07 21:35:31 [INFO]  getpermissions [username] - print username permissions
-2019.04.07 21:35:31 [INFO]  usernametouuid username auth_id - Convert player username to UUID
-2019.04.07 21:35:31 [INFO]  reload [name] - Reload provider/handler/module config
-2019.04.07 21:35:31 [INFO]  downloadclient version dir - Download client dir
-2019.04.07 21:35:31 [INFO]  confighelp [name] - print help for config command
-2019.04.07 21:35:31 [INFO]  gc [nothing] - Perform Garbage Collection and print memory usage
-2019.04.07 21:35:31 [INFO]  getmodulus [nothing] - null
-2019.04.07 21:35:31 [INFO]  givepermission [username] [permission] [true/false] - give permissions
-2019.04.07 21:35:31 [INFO]  debug [true/false] (true/false) - Enable or disable debug and stacktrace logging at runtime
-2019.04.07 21:35:31 [INFO]  test [nothing] - Test command. Only developer!
-2019.04.07 21:35:31 [INFO]  restart [nothing] - Restart LaunchServer
-2019.04.07 21:35:31 [INFO]  loadmodule [jar] - Module jar file
-2019.04.07 21:35:31 [INFO]  clear [nothing] - Clear terminal
-2019.04.07 21:35:31 [INFO]  syncprofiles [nothing] - Resync profiles dir
-2019.04.07 21:35:31 [INFO]  downloadasset version dir - Download asset dir
-2019.04.07 21:35:31 [INFO]  version [nothing] - Print LaunchServer version
-2019.04.07 21:35:31 [INFO]  modules [nothing] - get all modules
-2019.04.07 21:35:31 [INFO]  unindexasset dir index output-dir - Unindex asset dir (1.7.10+)
-2019.04.07 21:35:31 [INFO]  help [command name] - Print command usage
-2019.04.07 21:35:31 [INFO]  unban [username] - Unban username for HWID
-2019.04.07 21:35:31 [INFO]  component [action] [component name] [more args] - component manager
-2019.04.07 21:35:31 [INFO]  eval [line] - Eval javascript in server script engine
-2019.04.07 21:35:31 [INFO]  stop [nothing] - Stop LaunchServer
-2019.04.07 21:35:31 [INFO]  logconnections [true/false] - Enable or disable logging connections
-2019.04.07 21:35:31 [INFO]  syncbinaries [nothing] - Resync launcher binaries
-2019.04.07 21:35:31 [INFO]  build [nothing] - Build launcher binaries
-2019.04.07 21:35:31 [INFO]  rebind [nothing] - Rebind server socket
-2019.04.07 21:35:31 [INFO]  reloadlist  - print reloadable configs
-2019.04.07 21:35:31 [INFO]  indexasset dir index output-dir - Index asset dir (1.7.10+)
-2019.04.07 21:35:31 [INFO]  syncupdates [subdirs...] - Resync updates dir
-2019.04.07 21:35:31 [INFO]  configlist [name] - print help for config command
-2019.04.07 21:35:31 [INFO]  proguardclean [nothing] - Resets proguard config
-2019.04.07 21:35:31 [INFO]  config [name] [action] [more args] - call reconfigurable action
-2019.04.07 21:35:31 [INFO]  proguardmappingsremove [nothing] - Removes proguard mappings (if you want to gen new mappings).
+2019.05.09 18:52:16 [INFO] Command 'help'
+2019.05.09 18:52:16 [INFO] Category: basic - Base LaunchServer commands
+2019.05.09 18:52:16 [INFO]  proguarddictregen [nothing] - Regenerates proguard dictonary
+2019.05.09 18:52:16 [INFO]  gc [nothing] - null
+2019.05.09 18:52:16 [INFO]  debug [true/false] [true/false] - null
+2019.05.09 18:52:16 [INFO]  test [nothing] - Test command. Only developer!
+2019.05.09 18:52:16 [INFO]  restart [nothing] - Restart LaunchServer
+2019.05.09 18:52:16 [INFO]  loadmodule [jar] - Module jar file
+2019.05.09 18:52:16 [INFO]  clear [nothing] - Clear terminal
+2019.05.09 18:52:16 [INFO]  version [nothing] - Print LaunchServer version
+2019.05.09 18:52:16 [INFO]  modules [nothing] - get all modules
+2019.05.09 18:52:16 [INFO]  help [command name] - Print command usage
+2019.05.09 18:52:16 [INFO]  stop [nothing] - Stop LaunchServer
+2019.05.09 18:52:16 [INFO]  logconnections [true/false] - Enable or disable logging connections
+2019.05.09 18:52:16 [INFO]  build [nothing] - Build launcher binaries
+2019.05.09 18:52:16 [INFO]  rebind [nothing] - Rebind server socket
+2019.05.09 18:52:16 [INFO]  proguardclean [nothing] - Resets proguard config
+2019.05.09 18:52:16 [INFO]  proguardmappingsremove [nothing] - Removes proguard mappings (if you want to gen new mappings).
+2019.05.09 18:52:16 [INFO] Category: updates - Update and Sync Management
+2019.05.09 18:52:16 [INFO]  downloadclient [version] [dir] - Download client dir
+2019.05.09 18:52:16 [INFO]  syncprofiles [nothing] - Resync profiles dir
+2019.05.09 18:52:16 [INFO]  downloadasset [version] [dir] - Download asset dir
+2019.05.09 18:52:16 [INFO]  unindexasset [dir] [index] [output-dir] - Unindex asset dir (1.7.10+)
+2019.05.09 18:52:16 [INFO]  syncbinaries [nothing] - Resync launcher binaries
+2019.05.09 18:52:16 [INFO]  indexasset [dir] [index] [output-dir] - Index asset dir (1.7.10+)
+2019.05.09 18:52:16 [INFO]  syncupdates [subdirs...] - Resync updates dir
+2019.05.09 18:52:16 [INFO] Category: auth - User Management
+2019.05.09 18:52:16 [INFO]  uuidtousername [uuid] [auth_id] - Convert player UUID to username
+2019.05.09 18:52:16 [INFO]  auth [login] [password] [auth_id] - Try to auth with specified login and password
+2019.05.09 18:52:16 [INFO]  ban [username] - Ban username for HWID
+2019.05.09 18:52:16 [INFO]  gethwid [username] - get HWID from username
+2019.05.09 18:52:16 [INFO]  usernametouuid [username] [auth_id] - Convert player username to UUID
+2019.05.09 18:52:16 [INFO]  unban [username] - Unban username for HWID
+2019.05.09 18:52:16 [INFO] Category: dump - Dump runtime data
+2019.05.09 18:52:16 [INFO]  dumpentrycache [load/unload] [auth_id] [filename] - Load or unload AuthHandler Entry cache
+2019.05.09 18:52:16 [INFO]  dumpsessions [load/unload] [filename] - Load or unload sessions
+2019.05.09 18:52:16 [INFO] Category: service - Managing LaunchServer Components
+2019.05.09 18:52:16 [INFO]  serverstatus [nothing] - Check server status
+2019.05.09 18:52:16 [INFO]  reloadall  - Reload all provider/handler/module config
+2019.05.09 18:52:16 [INFO]  checkinstall [nothing] - null
+2019.05.09 18:52:16 [INFO]  multi [nothing] - null
+2019.05.09 18:52:16 [INFO]  getpermissions [username] - print username permissions
+2019.05.09 18:52:16 [INFO]  reload [name] - Reload provider/handler/module config
+2019.05.09 18:52:16 [INFO]  confighelp [name] - print help for config command
+2019.05.09 18:52:16 [INFO]  getmodulus [nothing] - null
+2019.05.09 18:52:16 [INFO]  givepermission [username] [permission] [true/false] - give permissions
+2019.05.09 18:52:16 [INFO]  component [action] [component name] [more args] - component manager
+2019.05.09 18:52:16 [INFO]  reloadlist  - print reloadable configs
+2019.05.09 18:52:16 [INFO]  configlist [name] - print help for config command
+2019.05.09 18:52:16 [INFO]  config [name] [action] [more args] - call reconfigurable action
+2019.05.09 18:52:16 [INFO] Category: Base
+2019.05.09 18:52:16 [INFO]  scriptmappings [nothing] - null
+2019.05.09 18:52:16 [INFO]  eval [line] - Eval javascript in server script engine
 </pre>
 <h3>Команды Launcher. Разблокировка консоли. Удаленное управление</h3>
 <p>Начиная с 5.0.0 в лаунчере появилась консоль, которую можно открыть после авторизации при клике справа на значек консоли.<br>
