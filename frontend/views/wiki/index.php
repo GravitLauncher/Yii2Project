@@ -168,59 +168,57 @@ $this->params['breadcrumbs'][] = "Wiki";
 <h2>Команды LaunchServer</h2>
 <p>Существует много команд лаунчсервера, которые можно выполнять из консоли</p>
 <pre class="prettyprint">
-Category: basic - Base LaunchServer commands
- proguarddictregen [nothing] - Regenerates proguard dictonary
- gc [nothing] - null
- debug [true/false] [true/false] - null
- test [nothing] - Test command. Only developer!
- restart [nothing] - Restart LaunchServer
- loadmodule [jar] - Module jar file
- clear [nothing] - Clear terminal
- version [nothing] - Print LaunchServer version
- modules [nothing] - get all modules
- help [command name] - Print command usage
- stop [nothing] - Stop LaunchServer
- build [nothing] - Build launcher binaries
- proguardclean [nothing] - Resets proguard config
- proguardmappingsremove [nothing] - Removes proguard mappings (if you want to gen new mappings).
-Category: updates - Update and Sync Management
- downloadclient [version] [dir] - Download client dir
- syncprofiles [nothing] - Resync profiles dir
- downloadasset [version] [dir] - Download asset dir
- unindexasset [dir] [index] [output-dir] - Unindex asset dir (1.7.10+)
- syncbinaries [nothing] - Resync launcher binaries
- indexasset [dir] [index] [output-dir] - Index asset dir (1.7.10+)
- syncupdates [subdirs...] - Resync updates dir
-Category: DAO - Data Management
- setuserpassword [username] [new password] - Set user password
- getuser [username] - get user information
- getallusers  - get all users information
- register [login] [password] - Register new user
-Category: auth - User Management
- uuidtousername <uuid> <auth_id> - Convert player UUID to username
- auth <login> <password> <auth_id> - Try to auth with specified login and password
- ban [username] - Ban username for HWID
- gethwid [username] - get HWID from username
- usernametouuid <username> <auth_id> - Convert player username to UUID
- unban [username] - Unban username for HWID
-Category: dump - Dump runtime data
- dumpentrycache [load/unload] [auth_id] [filename] - Load or unload AuthHandler Entry cache
- dumpsessions [load/unload] [filename] - Load or unload sessions
-Category: service - Managing LaunchServer Components
- clients [nothing] - Show all connected clients
- serverstatus [nothing] - Check server status
- reloadall  - Reload all provider/handler/module config
- checkinstall [nothing] - null
- multi [nothing] - null
- getpermissions [username] - print username permissions
- reload [name] - Reload provider/handler/module config
- confighelp [name] - print help for config command
- getmodulus [nothing] - null
- givepermission [username] [permission] [true/false] - give permissions
- component [action] [component name] [more args] - component manager
- reloadlist  - print reloadable configs
- configlist [name] - print help for config command
- config [name] [action] [more args] - call reconfigurable action
+Категория: basic - Базовые команды лаунчсервера
+ proguarddictregen - Регенерирую словарь ProGuard
+ gc - Очистка ОЗУ
+ debug [true/false] [true/false] - Включить/выключить отладку
+ restart - Перезагрузить лаунчсервер
+ loadmodule [jar] - Загрузить модуль
+ clear - Очистить терминал
+ version - Вывести версию лаунчсервера
+ modules - Вывести модули лаунчсервера
+ help [название команды] - Вывести использование команды
+ stop - Остановить лаунчсервер
+ build - Собрать лаунчер
+ proguardclean - Сбросить параметры ProGuard
+ proguardmappingsremove - Удалить словарь ProGuard (для генерации нового)
+Категория: updates - Управление обновлениями и синхронизацией
+ downloadclient [версия] [директория] - Скачать шаблон клиента с зеркала
+ syncprofiles - Синхронизировать профили клиентов
+ downloadasset [версия] [директория] - Скачать ресурсы клиента
+ unindexasset [исходная директория] [версия] [выходная директория] - Убрать индексацию ресурсов (1.7.10+)
+ syncbinaries - Синхронизировать jar и exe лаунчера
+ indexasset [исходная директория] [версия] [выходная директория] - Индексировать ресурсы (1.7.10+)
+ syncupdates [поддиректории...] - Синхронизировать клиенты
+Категория: DAO - Управление данными
+ setuserpassword [имя пользователя] [новый пароль] - Установить пароль пользователя
+ getuser [имя пользователя] - Получить информацию о пользователе
+ getallusers - Получить информацию о всех пользователях
+ register [логин] [пароль] - Зарегестрировать нового пользователя
+Категория: auth - Управление авторизацией
+ uuidtousername [uuid] [конфигурация auth] - Конвертировать uuid в имя пользователя
+ auth [логин] [пароль] [конфигурация auth] - Попытатся авторизоватся с указанным логином и паролем
+ ban [имя пользователя] - Забанить пользователя по HWID
+ gethwid [имя пользователя] - Получить сохраненный HWID по имени пользователя
+ usernametouuid [имя пользователя] [конфигурация auth] - Конвертировать имя пользователя в uuid
+ unban [имя пользователя] - Разбанить пользователя по HWID
+Категория: dump - Сохранение состояния лаунчсервера
+ dumpentrycache [load/unload] [конфигурация auth] [название файла] - Загрузить или выгрузить кэш AuthHandler
+ dumpsessions [load/unload] [название файла] - Загрузить или выгрузить сессии
+Категория: service - Управление компонентами лаунчсервера
+ clients - Показать всех подключенных клиентов
+ serverstatus - Проверить статус серверов
+ reloadall - Перезагрузить все конфигурации
+ multi ["команда1" "команда2" ...] - Выполнение нескольких команд
+ getpermissions [имя пользователя] - Вывести права пользователя
+ reload [название] - Перезагрузить конфигурацию
+ confighelp [name] - Вывести помощь по перенастраиваемым действиям
+ getmodulus - Вывести все модули
+ givepermission [имя пользователя] [право] [true/false] - Дать права пользователю
+ component [действие] [название компонента] [аргументы] - Управление компонентами
+ reloadlist - Вывести все перезагружаемые конфигурации
+ configlist - Вывести все перенастраиваемые конфигурации
+ config [название] [действие] [аргументы] - Вызвать перенастраиваемое действие
 </pre>
 <h3>Команды Launcher. Разблокировка консоли. Удаленное управление</h3>
 <p>Начиная с 5.0.0 в лаунчере появилась консоль, которую можно открыть после авторизации при клике справа на значек консоли.<br>
