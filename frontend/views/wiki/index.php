@@ -12,20 +12,31 @@ $this->params['breadcrumbs'][] = "Wiki";
     Распаковываем в нужную папку</p>
 <p>Версии до 5.0.0b6 можно скачать на <a class="link-animated" href="https://github.com/GravitLauncher/Launcher/releases">GitHub</a></p>
 <p>Запускаем лаунчсервер командой <span class="codes">java -javaagent:LaunchServer.jar -jar LaunchServer.jar</span></p>
-<h3>Вариант 2: Скрипт установки</h3>
-<p>Выполните в консоли <span class="codes">curl -s http://mirror.gravitlauncher.ml/setup.sh | sh</span></p>
-<p>Запускаем лаунчсервер командой <span class="codes">java -javaagent:LaunchServer.jar -jar LaunchServer.jar</span></p>
-<p>Некоторые shell некорреткно обрабатывают ввод при использовании этой команды. Если такое произошло с вами - скачайте setup.sh самостоятельно и запустите его</p>
-<p>Перед установкой проверьте наличие <b>unzip</b> и <b>curl</b> в вашей системе</p>
-<h3>Вариант 3: Сборка из исходников</h3>
-<p>Открываем репозиторий на <a class="link-animated" href="https://github.com/GravitLauncher/Launcher">GitHub</a>, жмем <span class="codes">Clone or Download</span><br>
-    Выполняем <span class="codes">git clone https://github.com/GravitLauncher/Launcher.git</span> или скачиваем zip архив с исходниками<br>
-    <b>Если у вас не настроены SSH ключи для доступа к GitHub вам нужно изменить в файле .gitmodules <span>git@github.com:</span> на <span>https://github.com/</span></b><br>
-    Обязательно выполните <span>git submodule update --init</span><br>
-    Устанавливаем <a class="link-animated" href="https://www.oracle.com/technetwork/java/javase/downloads/2133151">JDK</a><br>
-    Открываем в консоли папку с исходниками и выполняем <span class="codes">gradlew.bat build</span>(Windows) <span class="codes">./gradlew build</span>(Linux)</p>
-<p>Готовый результат появится в <span class="codes">LaunchServer/build/libs</span>. Туда же будут скопированы все необходимые библиотеки</p>
-<p>Запускаем лаунчсервер командой <span class="codes">java -javaagent:LaunchServer.jar -jar LaunchServer.jar</span></p>
+<h3>Вариант 2: Сборка из исходников</h3>
+    <h4>Способ с Git</h4>
+    <b>    Необходимо установить <a class="link-animated" href="https://git-scm.com/downloads">Git</a></b><br>
+    <ol>
+      <li>Открываем <b>cmd</b> или <b>терминал</b></li>
+      <li>Выполняем <span class="codes">git clone https://github.com/GravitLauncher/Launcher.git</span></li>
+      <b>Обязательно выполните <span>git submodule update --init</span><br></b>
+      Если у вас не настроены SSH ключи для доступа к GitHub вам нужно изменить в файле .gitmodules <span>git@github.com:</span> на <span>https://github.com/</span>
+      <li>Устанавливаем <a class="link-animated" href="https://www.oracle.com/technetwork/java/javase/downloads/2133151">JDK</a></li> 
+      <li>Открываем в консоли папку с исходниками и выполняем <span class="codes">gradlew.bat build</span> (Windows) <span class="codes">sh gradlew build</span> (Linux)</li>
+      <li>Готовый результат появится в <span class="codes">LaunchServer/build/libs</span>. Туда же будут скопированы все необходимые библиотеки</li>
+      <li>Запускаем лаунчсервер командой <span class="codes">java -javaagent:LaunchServer.jar -jar LaunchServer.jar</span></li>
+    </ol>
+    <h4>Cкачивание вручную</h4>
+    <ol>
+      <li>Открываем репозиторий на <a class="link-animated" href="https://github.com/GravitLauncher/Launcher">GitHub</a>, жмем Clone or Download,
+      так же скачиваем <a class="link-animated" href="https://github.com/GravitLauncher/Radon">Radon</a>, и по желанию
+      <a class="link-animated" href="https://github.com/GravitLauncher/Launcher">модули</a></li>
+      <li>Распаковываем <b>Launcher-master.zip</b>, заходим в распакованную папку. Распаковываем тут <b>Radon</b>, и по желанию <b>модули</b></li>
+      <li>Открываем в <b>cmd</b> или <b>терминале</b> папку с исходными кодами, пользуясь командами <b>cd (папка)</b> и <b>ls</b> (Linux) <b>dir</b> (Windows)</li>
+      <li>Устанавливаем <a class="link-animated" href="https://www.oracle.com/technetwork/java/javase/downloads/2133151">JDK</a></li>
+      <li>Открываем в консоли папку с исходниками и выполняем <span class="codes">gradlew.bat build</span> (Windows) <span class="codes">sh gradlew build</span> (Linux)</li>
+      <li>Готовый результат появится в <span class="codes">LaunchServer/build/libs</span>. Туда же будут скопированы все необходимые библиотеки</li>
+      <li>Запускаем лаунчсервер командой <span class="codes">java -javaagent:LaunchServer.jar -jar LaunchServer.jar</span></li>
+    </ol>
 <hr>
 <h2>Рекомендуемые настройки безопасности для проектов</h2>
 <p>Рекомендуется выделить лаунчсерверу отдельного пользователя и папку в <span class="codes">/home</span><br>
