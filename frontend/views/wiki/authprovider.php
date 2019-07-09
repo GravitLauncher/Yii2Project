@@ -133,23 +133,23 @@ apiKey - секретный ключ, который может проверят
 Запрос:</p>
 <pre class="prettyprint">
 {
-    "username": "admin",
-    "password": "password",
-    "ip": "127.0.0.1",
-    "apiKey": "none"
+  "username": "admin",
+  "password": "password",
+  "ip": "127.0.0.1",
+  "apiKey": "none"
 }
 </pre>
 <p>Ответ:</p>
 <pre class="prettyprint">
 {
-    "username": "admin",
-    "permissions": 0
+  "username": "admin",
+  "permissions": 0
 }
 </pre>
 <p>Ошибка:</p>
 <pre class="prettyprint">
 {
-    "error": "Неверный логин или пароль"
+  "error": "Неверный логин или пароль"
 }
 </pre>
 <h3>Способ hibernate</h3>
