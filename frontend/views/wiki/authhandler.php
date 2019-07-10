@@ -15,36 +15,24 @@ $this->params['breadcrumbs'][] = "AuthHandler";
 ]
 </pre>
 <h3>Способ mysql</h3>
-<p>Для получения UUID лаунчсервер обращается к базе данных mysql<br>
-mySQLHolder<br>
-  address - адрес mysql сервера<br>
-  port - порт mysql сервера<br>
-  username - имя пользователя на сервере mysql<br>
-  password - пароль пользователя<br>
-  database - база данных (до ?), после находится установка серверной таймзоны<br>
-  timezone - установка клиентской таймзоны<br>
-table - таблица в базе данных<br>
-uuidColumn - название столбца с uuid<br>
-usernameColumn - название столбца с именами пользователей<br>
-accessTokenColumn - название столбца с accessToken<br>
-serverIDColumn - название столбца с serverID</p>
+<p>Для получения UUID лаунчсервер обращается к базе данных mysql</p>
 <pre class="prettyprint">
 "auth": [
   "handler": {
     "type": "mysql",
     "mySQLHolder": {
-      "address": "localhost",
-      "port": 3306,
-      "username": "launchserver",
-      "password": "password",
-      "database": "db?serverTimezone=UTC",
-      "timezone": "UTC"
+      "address": "localhost",              // адрес mysql сервера
+      "port": 3306,                        // порт mysql сервера
+      "username": "launchserver",          // имя пользователя
+      "password": "password",              // пароль пользователя
+      "database": "db?serverTimezone=UTC", // база данных (до ?), после находится установка серверной таймзоны
+      "timezone": "UTC"                    // установка клиентской таймзоны
     },
-    "table": "users",
-    "uuidColumn": "uuid",
-    "usernameColumn": "username",
-    "accessTokenColumn": "accessToken",
-    "serverIDColumn": "serverID"
+    "table": "users",                      // таблица
+    "uuidColumn": "uuid",                  // название столбца с uuid
+    "usernameColumn": "username",          // название столбца с именами пользователей
+    "accessTokenColumn": "accessToken",    // название столбца с accessToken
+    "serverIDColumn": "serverID"           // название столбца с serverID
   }
 ]
 </pre>
@@ -77,4 +65,16 @@ UPDATE `table` SET uuid=(SELECT UUID()) WHERE uuid IS NULL;
 <h3>Способ json</h3>
 <!-- TODO -->
 <h3>Способ hibernate</h3>
-<!-- TODO -->
+<p>Hibernate — самая популярная реализация спецификации JPA, предназначенная для решения задач объектно-реляционного отображения (ORM)<br>
+Для проверки логина и пароля лаунчсервер обращается к любой базе данных<br>
+<b>Для подключения к базам данных, в libraries необходимо положить библиотеку для поддержки соответствующей базы данных</b><br>
+<a href="index.php?r=wiki/page&page=hibernate">Инструкция по настройке Hibernate</a></p>
+<pre class="prettyprint">
+"auth": [
+  {
+    "handler": {
+      "type": "hibernate"
+    }
+  }
+]
+</pre>
