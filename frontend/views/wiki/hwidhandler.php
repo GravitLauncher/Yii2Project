@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = "HWIDHandler";
     "apiKey": "none" // секретный ключ, который может проверятся в скрипте, для безопасности
 }
 </pre>
-<details>
+<!-- <details>
 <summary>Запросы<summary>
 
 ЕЩЕ НЕДОПИСАНО!
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = "HWIDHandler";
   "username": "admin",
   "apiKey": "none"
 }
-</details>
+</details> -->
 <h3>Способ mysql</h3>
 <p>Для проверки hwid лаунчсервер обращается к mysql<br>
 <b>Для использования умного сравнения hwid необходимо поменять все "and" на "or" в запросе queryHwids</b></p>
