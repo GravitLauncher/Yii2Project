@@ -15,7 +15,12 @@ $this->params['breadcrumbs'][] = "HWIDHandler";
 }
 </pre>
 <h3>Способ memory</h3>
-<!-- TODO -->
+<p>Сохраняет и проверяет hwid в ОЗУ<br>
+<b>При остановке лаунчсервера hwid теряются</b></p>
+"hwidHandler": {
+    "type": "memory"
+}
+</pre>
 <h3>Способ jsonfile</h3>
 <!-- TODO -->
 <h3>Способ json</h3>
