@@ -115,6 +115,8 @@ $this->params['breadcrumbs'][] = "AuthProvider";
 ]
 </pre>
 <p>При этом способе настройка permissions не выполняется, так как по умолчанию сервер обязан передавать permissions<br>
+<details>
+<summary>Запросы<summary>
 Запрос:</p>
 <pre class="prettyprint">
 {
@@ -137,6 +139,7 @@ $this->params['breadcrumbs'][] = "AuthProvider";
   "error": "Неверный логин или пароль"
 }
 </pre>
+</details>
 <h3>Способ hibernate</h3>
 <p>Hibernate — самая популярная реализация спецификации JPA, предназначенная для решения задач объектно-реляционного отображения (ORM)<br>
 Для проверки логина и пароля лаунчсервер обращается к любой базе данных<br>

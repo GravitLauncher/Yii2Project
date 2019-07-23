@@ -32,7 +32,54 @@ $this->params['breadcrumbs'][] = "HWIDHandler";
 }
 </pre>
 <h3>Способ json</h3>
-<!-- TODO -->
+<p>Для проверки логина и пароля лаунчсервер обращается к сайту по протоколу HTTP/HTTPS, делает POST запрос с json данными внутри</p>
+<pre class="prettyprint">
+"hwidHandler": {
+    "type": "json",
+    "url": "http://gravit.pro/sethwid.php",        // ссылка до скрипта занесения hwid (в базу/etc)
+    "urlBan": "http://gravit.pro/banhwid.php",     // ссылка до скрипта бана пользователя
+    "urlUnBan": "http://gravit.pro/unbanhwid.php", // ссылка до скрипта разбана пользователя
+    "urlGet": "http://gravit.pro/gethwid.php",     // ссылка до скрипта получения hwid
+    "apiKey": "none" // секретный ключ, который может проверятся в скрипте, для безопасности
+}
+</pre>
+<details>
+<summary>Запросы<summary>
+
+ЕЩЕ НЕДОПИСАНО!
+
+<p>Запрос на sethwid.php:</p>
+<pre class="prettyprint">
+{
+  "username": "admin",
+  "hwid": "",
+  "apiKey": "none"
+}
+
+
+<p>Запрос на banhwid.php:</p>
+<pre class="prettyprint">
+{
+  "hwid": "",
+  "apiKey": "none"
+}
+
+
+<p>Запрос на unbanhwid.php:</p>
+<pre class="prettyprint">
+{
+  "hwid": "",
+  "apiKey": "none"
+}
+
+
+<p>Запрос на gethwid.php:</p>
+<pre class="prettyprint">
+{
+  "username": "admin",
+  "apiKey": "none"
+}
+</details>
 <h3>Способ mysql</h3>
 <p>Для проверки hwid лаунчсервер обращается к mysql</p>
 <pre class="prettyprint">
