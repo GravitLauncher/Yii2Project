@@ -54,14 +54,30 @@ IF NEW.uuid IS NULL THEN
 SET NEW.uuid = UUID();
 END IF;
 END; //
-DELIMITER;
+DELIMITER ;
 
 -- Генерирует UUID для уже существующих пользователей
 -- Замените table на название таблицы
 UPDATE `table` SET uuid=(SELECT UUID()) WHERE uuid IS NULL;
 </pre>
 <h3>Способ request</h3>
-<!-- TODO -->
+<p>Для получения и обновления uuid, accessToken, serverID лаунчсервер обращается к сайту по протоколу HTTP/HTTPS<br>
+В скобках указаны параметры запроса</p>
+<pre class="prettyprint">
+"auth": [
+  {
+    "handler": {
+      "type": "request",
+      "usernameFetch": "http://gravit.pro/usernameFetch.php",   // получение uuid:accessToken:serverID по имени пользователя (user)
+      "uuidFetch": "http://gravit.pro/uuidFetch.php",           // получение username:accessToken:serverID по uuid (uuid)
+      "updateAuth": "http://gravit.pro/updateAuth.php",         // скрипт обновления accessToken и uuid по имени пользователя (user, uuid, token)
+      "updateServerID": "http://gravit.pro/updateserverID.php", // скрипт обновления serverID по uuid (serverid, uuid)
+      "splitSymbol": ":",     // символ разделения в uuidFetch и usernameFetch (например: "username:accessToken:serverID") 
+      "goodResponse": "OK"    // ответ updateAuth и updateServerID, когда все прошло успешно
+    }
+  }
+]
+</pre>
 <h3>Способ json</h3>
 <!-- TODO -->
 <h3>Способ hibernate</h3>
