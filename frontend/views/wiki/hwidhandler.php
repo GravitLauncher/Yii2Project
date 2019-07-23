@@ -17,12 +17,20 @@ $this->params['breadcrumbs'][] = "HWIDHandler";
 <h3>Способ memory</h3>
 <p>Сохраняет и проверяет hwid в ОЗУ<br>
 <b>При остановке лаунчсервера hwid теряются</b></p>
+<pre class="prettyprint">
 "hwidHandler": {
     "type": "memory"
 }
 </pre>
 <h3>Способ jsonfile</h3>
-<!-- TODO -->
+<p>Сохраняет hwid в файл json</p>
+<pre class="prettyprint">
+"hwidHandler": {
+    "type": "jsonfile",
+    "filename": "hwids.json",                 // название файла с hwid
+    "banMessage": "Ваш аккаунт заблокирован!" // сообщение, когда забаненный пользователь пытается войти
+}
+</pre>
 <h3>Способ json</h3>
 <!-- TODO -->
 <h3>Способ mysql</h3>
