@@ -81,7 +81,8 @@ $this->params['breadcrumbs'][] = "HWIDHandler";
 }
 </details>
 <h3>Способ mysql</h3>
-<p>Для проверки hwid лаунчсервер обращается к mysql</p>
+<p>Для проверки hwid лаунчсервер обращается к mysql<br>
+<b>Для использования умного сравнения hwid необходимо поменять все "and" на "or" в запросе queryHwids</b></p>
 <pre class="prettyprint">
 "hwidHandler": {
      "type": "mysql",
@@ -114,11 +115,13 @@ $this->params['breadcrumbs'][] = "HWIDHandler";
      "hwidFieldHWDiskSerial": "HWDiskSerial",  // название столбца с серийным номером жесткого диска пользователя
      "hwidFieldProcessorID": "processorID",    // название столбца с ID процессора пользователя
      "hwidFieldMAC": "macAddr",                // название столбца с MAC адресом сетевой карты пользователя
+     
+     "compareMode": false,                     // умное сравнение hwid
+     "compare": 50,                            // cтепень схожести hwid
 
      "banMessage": "Ваш аккаунт заблокирован!" // сообщение, когда забаненный пользователь пытается войти
 }
 </pre>
-
 <p>В таблице users хранятся данные о пользователях (минимум: ник), в столбце "hwid" хранится id записи в таблице users_hwids<br>
 В users_hwids хранятся характеристики компьютеров пользователей</p>
 <p>Создать необходимый столбец и таблицу можно запросом</p>
