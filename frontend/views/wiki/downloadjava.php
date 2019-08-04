@@ -9,13 +9,17 @@ $this->params['breadcrumbs'][] = "Download Java";
 1. runtime/config.js
 <pre class="prettyprint">
 jvm: {
-        enable: false
+        enable: false,
+		jvmMustdie32Dir: "jre-8u202-win32",
+        jvmMustdie64Dir: "jre-8u202-win64",
 }
 </pre>
 меняем на
 <pre class="prettyprint">
 jvm: {
-        enable: true
+        enable: true,
+		jvmMustdie32Dir: "jre-8u211-win32",
+        jvmMustdie64Dir: "jre-8u211-win64"
 }
 </pre>
 2. LaunchServer.json
