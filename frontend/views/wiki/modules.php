@@ -85,7 +85,7 @@ public class AutoSaveSessionsModule implements Module {
         srv = context.launchServer;
         file = configDir.resolve(FILENAME);
         if (IOHelper.exists(file)) {
-            LogHelper.info("Load sessions from %s", FILENAME);
+            LogHelper.info("Load sessions from %s", FILENAME);	//Загрузка сессий
             Type setType = new TypeToken<HashSet<Client>>() {
             }.getType();
             try (Reader reader = IOHelper.newReader(file)) {
@@ -93,7 +93,7 @@ public class AutoSaveSessionsModule implements Module {
                 for (Client client : clientSet) {
                     if (client.isAuth) client.updateAuth(srv);
                 }
-                context.launchServer.sessionManager.loadSessions(clientSet);
+                context.launchServer.sessionManager.loadSessions(clientSet);	//Обращаемся к sessionsManager для загрузки сессий
                 LogHelper.info("Loaded %d sessions", clientSet.size());
             } catch (IOException e) {
                 LogHelper.error(e);
@@ -121,5 +121,6 @@ public class AutoSaveSessionsModule implements Module {
         }
     }
 }
+</pre>
 <p>Что бы узнать полный список API используйте подсказки IDEA и исходный код на GitHub</p>
 <p>Прочие примеры модулей можно найти <a href="https://github.com/GravitLauncher/LauncherModules">тут</a></p>
