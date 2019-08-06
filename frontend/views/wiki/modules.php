@@ -21,17 +21,7 @@ $this->params['breadcrumbs'][] = "Модули";
 <h3>Пример модуля</h3>
 <p>В качестве примера возьмем модуль AutoSaveSessions. Этот модуль сохраняет сессии в файл при остановке лаунчсервера и загружает их обратно при старте</p>
 <pre class="prettyprint">
-package ru.gravit.launchermodules.autosavesessions;
-
-import com.google.gson.reflect.TypeToken;
-import ru.gravit.launcher.modules.Module;
-import ru.gravit.launcher.modules.ModuleContext;
-import ru.gravit.launchserver.LaunchServer;
-import ru.gravit.launchserver.modules.LaunchServerModuleContext;
-import ru.gravit.launchserver.socket.Client;
-import ru.gravit.utils.Version;
-import ru.gravit.utils.helper.IOHelper;
-import ru.gravit.utils.helper.LogHelper;
+package pro.gravit.launchermodules.autosavesessions;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -42,11 +32,24 @@ import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.google.gson.reflect.TypeToken;
+
+import pro.gravit.launcher.Launcher;
+import pro.gravit.launcher.modules.Module;
+import pro.gravit.launcher.modules.ModuleContext;
+import pro.gravit.launchserver.LaunchServer;
+import pro.gravit.launchserver.modules.LaunchServerModuleContext;
+import pro.gravit.launchserver.socket.Client;
+import pro.gravit.utils.Version;
+import pro.gravit.utils.helper.IOHelper;
+import pro.gravit.utils.helper.LogHelper;
+
 public class AutoSaveSessionsModule implements Module {
     public static Version version = new Version(1, 0, 0);
     public static String FILENAME = "sessions.json";
     public static boolean isClearSessionsBeforeSave = true;
     public Path file;
+	private LaunchServer srv;
 
     @Override
     public String getName() {
@@ -70,8 +73,8 @@ public class AutoSaveSessionsModule implements Module {
 
     @Override
     public void postInit(ModuleContext context1) {
-        LaunchServerModuleContext context = (LaunchServerModuleContext) context1; //Получаем контекст
-        Path configDir = context.modulesConfigManager.getModuleConfigDir(getName()); //Получаем папку с конфигурацией нашего модуля. По умолчанию config/modulename
+        LaunchServerModuleContext context = (LaunchServerModuleContext) context1;   //Получаем контекст
+        Path configDir = context.modulesConfigManager.getModuleConfigDir(getName());    //Получаем папку с конфигурацией нашего модуля. По умолчанию config/modulename
         if (!IOHelper.isDir(configDir)) {
             try {
                 Files.createDirectories(configDir);
@@ -79,14 +82,18 @@ public class AutoSaveSessionsModule implements Module {
                 LogHelper.error(e);
             }
         }
+        srv = context.launchServer;
         file = configDir.resolve(FILENAME);
         if (IOHelper.exists(file)) {
-            LogHelper.info("Load sessions from %s", FILENAME); //Загрузка сессий
-            Type setType = new TypeToken&lt;HashSet&lt;Client&gt;&gt;() {
+            LogHelper.info("Load sessions from %s", FILENAME);
+            Type setType = new TypeToken<HashSet<Client>>() {
             }.getType();
             try (Reader reader = IOHelper.newReader(file)) {
-                Set&lt;Client> clientSet = LaunchServer.gson.fromJson(reader, setType);
-                context.launchServer.sessionManager.loadSessions(clientSet); //Обращаемся к sessionsManager для загрузки сессий
+                Set<Client> clientSet = Launcher.gsonManager.configGson.fromJson(reader, setType);
+                for (Client client : clientSet) {
+                    if (client.isAuth) client.updateAuth(srv);
+                }
+                context.launchServer.sessionManager.loadSessions(clientSet);
                 LogHelper.info("Loaded %d sessions", clientSet.size());
             } catch (IOException e) {
                 LogHelper.error(e);
@@ -102,18 +109,17 @@ public class AutoSaveSessionsModule implements Module {
     @Override
     public void close() {
         if (isClearSessionsBeforeSave) {
-            LaunchServer.server.sessionManager.garbageCollection();
+        	srv.sessionManager.garbageCollection();
         }
-        Set&lt;Client&gt; clientSet = LaunchServer.server.sessionManager.getSessions(); //Обращаемся к sessionsManager для получения сессий
+        Set<Client> clientSet = srv.sessionManager.getSessions();   //Обращаемся к sessionsManager для получения сессий
         try (Writer writer = IOHelper.newWriter(file)) {
             LogHelper.info("Write sessions to %s", FILENAME);
-            LaunchServer.gson.toJson(clientSet, writer);
+            Launcher.gsonManager.configGson.toJson(clientSet, writer);
             LogHelper.info("%d sessions writed", clientSet.size());
         } catch (IOException e) {
             LogHelper.error(e);
         }
     }
 }
-</pre>
 <p>Что бы узнать полный список API используйте подсказки IDEA и исходный код на GitHub</p>
 <p>Прочие примеры модулей можно найти <a href="https://github.com/GravitLauncher/LauncherModules">тут</a></p>
