@@ -9,18 +9,10 @@ $this->params['breadcrumbs'][] = "Download Java";
 1. runtime/config.js
 <pre class="prettyprint">
 jvm: {
-        enable: false,
-		jvmMustdie32Dir: "jre-8u202-win32",
-        jvmMustdie64Dir: "jre-8u202-win64",
-}
-</pre>
-меняем на
-<pre class="prettyprint">
-jvm: {
-        enable: true,
-		jvmMustdie32Dir: "jre-8u211-win32",
-        jvmMustdie64Dir: "jre-8u211-win64"
-}
+    enable: true,                        // Включение загрузки своей JVM
+    jvmMustdie32Dir: "jre-8u211-win32",  // Название папки JVM для Windows x32
+    jvmMustdie64Dir: "jre-8u211-win64",  // Название папки JVM для Windows x64
+},
 </pre>
 2. LaunchServer.json
 <pre class="prettyprint">
@@ -34,6 +26,6 @@ jvm: {
     "guardType": "java"
 }
 </pre>
-3. Распаковываем <a href="https://yadi.sk/d/B7FMKOP6AEtCrA">этот архив</a> в папку updates<br>
+3. Распаковываем <a href="https://mirror.gravit.pro/jre8u211-win.zip">этот архив</a> в папку updates<br>
 4. Выполняем команды в лаунчсервере: syncUpdates и build
 </p>

@@ -22,12 +22,12 @@ $this->params['breadcrumbs'][] = "ServerWrapper";
 <p><b>Class-Path</b> - путь, где JVM будет искать классы. Его можно найти открыв jar файл ядра и посмотрев содержимое манифеста, либо скопировать из старого скрипта запуска</p>
 <h3>Указание Main-Class в строке запуска</h3>
 <pre class="prettyprint">
-java -cp ServerWrapper.jar:{ClassPath вашего сервера} ru.gravit.launcher.server.ServerWrapper {ваш MainClass}
+java -cp ServerWrapper.jar:{ClassPath вашего сервера} pro.gravit.launcher.server.ServerWrapper {ваш MainClass}
 </pre>
 <h3>Указание Main-Class в конфигурации</h3>
 <p>Можно указать Main-Class в ServerWrapperConfig.json , тогда строка запуска будет выглядеть так:</p>
 <pre class="prettyprint">
-java -cp ServerWrapper.jar:{ClassPath вашего сервера} ru.gravit.launcher.server.ServerWrapper
+java -cp ServerWrapper.jar:{ClassPath вашего сервера} pro.gravit.launcher.server.ServerWrapper
 </pre>
 <h2>Конфигурация ServerWrapperConfig.json</h2>
 <p>Необходимо скопировать public.key из директории лаунчсервера в директорию ServerWrapper</p>
@@ -67,5 +67,5 @@ java -cp ServerWrapper.jar:{ClassPath вашего сервера} ru.gravit.lau
     }
 }
 </pre>
-<p>После внесения изменений нужно перезапустить лаунчсервер или выполнить <span>reload permissionsHandler</span></p>
+<p>После внесения изменений нужно перезапустить лаунчсервер или выполнить команду <span>reload permissionsHandler</span></p>
 
