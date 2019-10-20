@@ -9,7 +9,8 @@ $this->params['breadcrumbs'][] = "Signing launcher";
 <ul>
 <li>Можно сгенерировать самому себе самоподписанный сертификат</li>
 <li>Можно купить сертификат для подписи лаунчера у официальных СА (очень дорого)</li>
-<li>Можно попросить сертификат у того, кто уже настроил грамотно свой СА и может подписывать другие сертификаты</li>
+<li>Можно попросить сертификат у того, кто уже настроил грамотно свой СА и может подписывать другие сертификаты<br>
+Для этого надо создать CSR, и передать его человеку, который его подпишет (см. инструкцию в конце)</li>
 </ul>
 <h2>Подпись jar</h2>
 <p>Этот гайд необходим всем тем кто хочет настроить JarSigner module, а так же начиная с 5.0.10 подписывание будет обязательным.<br>
@@ -18,7 +19,6 @@ $this->params['breadcrumbs'][] = "Signing launcher";
 <li>Установлен модуль JarSigner</li>
 <li>Сертификат</li>
 </ol>
-
 Конфигурация:
 <h3>Для формата PKCS12 (рекомендуется)</h3>
 
@@ -74,4 +74,35 @@ Debian-подобные системы: sudo apt install osslsigncode</li>
 </ol>
 <b>При каждом билде шаги 3-4 нужно будет повторять заново</b><br>
 <b>При появлении ошибки <span class="codes">Corrupt jar file</span> (размер подписи изменился) заново выполните шаги 1-4</b>
+<h2>Создание CSR (Certificate Signing Request) для 3 варианта получения сертификата</h2>
+<b>CSR это не сертификат - это запрос на сертификат</b><br>
+<b>Необходимо установить <a class="link-animated" href="https://www.openssl.org/source/">OpenSSL</a></b><br>
+В терминале:<br>
+<span class="codes">openssl genrsa -out private.key 4096</span><br>
+4096 - это размер приватного ключа в битах. Можно использовать от 1024 бит (небезопасно) до 8192 (безопасно).<br>
+<b>Приватный ключ не должен быть скомпрометирован никем, и не должен передаватся по незащищенным каналам связи</b><br>
+<b>Если вы хотите использовать эллиптические кривые вместо RSA:</b>
+<span class="codes">openssl ecparam -name secp256k1 -genkey -out private.key</span>
+Где secp256k1 -  название эллиптической кривой<br>
+Вы можете выбрать любую кривую на свое усмотрение, если понимаете что делаете<br>
+В противом случае рекомендуется оставить всё как есть<br>
+Далее:<br>
+<span class="codes">openssl req -new -key private.key -out cert.csr</span><br>
+И отвечаем на вопросы примерно так:
+<pre class="prettyprint">
+Country Name (2 letter code) [AU]:RU
+State or Province Name (full name) [Some-State]:Russia
+Locality Name (eg, city) []:Moscow
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:MyProjectName              
+Organizational Unit Name (eg, section) []:IT
+Common Name (e.g. server FQDN or YOUR name) []:MyProjectName Code Sign
+Email Address []:admin@myproject.name
+A challenge password []:
+An optional company name []:
+</pre>
+После чего CSR вы должны отправить тому, кто подпишет вам сертификат своим СА<br>
+После получения сертификата (.pem) соберите его с своим приватным ключем в формат pfx<br>
+<span class="codes">openssl pkcs12 -export -in MyProjectName_Code_Sign.pem -inkey private.key -out cert.pfx</span><br>
+У вас спросят пароль. Если вы хотите дополнительно защитить ваш ключ - можете поставить<br>
+Готовый pfx вы можете использовать для подписи самостоятельно
 </p>
