@@ -47,9 +47,10 @@ AppAsset::register($this);
             ['label' => 'Проксирование/Netty', 'url' => ['/wiki/page', 'page' => 'nettyconfig']],
             ['label' => 'Модификация runtime', 'url' => ['/wiki/page', 'page' => 'modifyruntime']],
             ['label' => 'Написание модулей', 'url' => ['/wiki/page', 'page' => 'modules']],
-			['label' => 'Своя java', 'url' => ['/wiki/page', 'page' => 'downloadjava']],
-			['label' => 'Hibernate', 'url' => ['/wiki/page', 'page' => 'hibernate']],
-        ]
+	    ['label' => 'Своя java', 'url' => ['/wiki/page', 'page' => 'downloadjava']],
+            ['label' => 'Hibernate', 'url' => ['/wiki/page', 'page' => 'hibernate']],
+	       ['label' => 'Подпись лаунчера', 'url' => ['/wiki/page', 'page' => 'signlauncher']],
+	]
         ],
         ['label' => 'О нас', 'url' => ['/site/about']],
     ];
