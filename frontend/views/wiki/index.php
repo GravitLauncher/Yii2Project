@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = "Wiki";
 <h3>Вариант 1: Скачивание релиза</h3>
 <p>Скачиваем последний релиз с <a class="link-animated" href="https://gitlab.com/gravitlauncherteam/Launcher/pipelines">GitLab</a><br>
     Он выглядит так: <br>
-    <img src="http://i.piccy.info/i9/1e9fb41f2af8ff859faad9073455dd92/1571345953/16499/1338191/v.png"><br>
+    <img src="https://cdn.discordapp.com/attachments/612736409677070338/635566914189393940/v.png"><br>
     (С пометкой latest, а так же ветка должна быть <b>master</b>)<br>
     Распаковываем в нужную папку</p>
 <p>Версии до 5.0.0b6 можно скачать на <a class="link-animated" href="https://github.com/GravitLauncher/Launcher/releases">GitHub</a>, но их поддержка уже прекращена</p>
