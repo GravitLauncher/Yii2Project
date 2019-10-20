@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = "Signing launcher";
 У вас будет такой вывод<br>
 <span class="codes">Your keystore contains 1 entry
 untrusted code sign, 20.10.2019, PrivateKeyEntry,
-</span>
+</span><br>
 untrusted code sign - ваш key alias, его вы и должны будете указать<br>
 <b>Утилита keystore поставляется вместе с JDK</b>
 <h3>Для JKS(Java KeyStore)</h3>
@@ -52,7 +52,7 @@ untrusted code sign - ваш key alias, его вы и должны будете
 }
 </pre>
 <h2>Подпись exe</h2>
-<b>Инструкция и скрипты написаны под Linux</b>
+<b>Инструкция и скрипты написаны под Linux</b><br>
 Перед началом работы с этими скриптами у вас уже должны быть:
 <ol>
 <li>Установлен osslsigncode<br>
@@ -72,6 +72,6 @@ Debian-подобные системы: sudo apt install osslsigncode</li>
 Если всё прошло успешно, вам покажет информацию о сертификатах внутри exe</li>
 <li>Замените ваш Launcher.exe рядом с лаунчсервером подписанной версией, и пропишите <span class="codes">syncBinaries</span> в консоли лаунчсервера</li>
 </ol>
-<b>При каждом билде шаги 3-4 нужно будет повторять заново</b>
+<b>При каждом билде шаги 3-4 нужно будет повторять заново</b><br>
 <b>При появлении ошибки <span class="codes">Corrupt jar file</span> (размер подписи изменился) заново выполните шаги 1-4</b>
 </p>
