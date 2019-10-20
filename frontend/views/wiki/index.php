@@ -31,9 +31,8 @@ $this->params['breadcrumbs'][] = "Wiki";
     <h4>Cкачивание вручную</h4>
     <ol>
       <li>Открываем репозиторий на <a class="link-animated" href="https://github.com/GravitLauncher/Launcher">GitHub</a>, жмем Clone or Download,
-      так же скачиваем <a class="link-animated" href="https://github.com/GravitLauncher/Radon">Radon</a>, и по желанию
-      <a class="link-animated" href="https://github.com/GravitLauncher/Launcher">модули</a></li>
-      <li>Распаковываем <b>Launcher-master.zip</b>, заходим в распакованную папку. Распаковываем тут <b>Radon</b>, и по желанию <b>модули</b></li>
+      и по желанию скачиваем <a class="link-animated" href="https://github.com/GravitLauncher/Launcher">модули</a></li>
+      <li>Распаковываем <b>Launcher-master.zip</b>, заходим в распакованную папку. Распаковываем тут, по желанию, <b>модули</b></li>
       <li>Открываем в <b>cmd</b> или <b>терминале</b> папку с исходными кодами, пользуясь командами <b>cd (папка)</b> и <b>ls</b> (Linux) <b>dir</b> (Windows)</li>
       <li>Устанавливаем <a class="link-animated" href="https://www.oracle.com/technetwork/java/javase/downloads/2133151">JDK</a></li>
       <li>Открываем в консоли папку с исходниками и выполняем <span class="codes">gradlew.bat build</span> (Windows) <span class="codes">sh gradlew build</span> (Linux)</li>
