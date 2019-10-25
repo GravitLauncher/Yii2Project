@@ -55,8 +55,7 @@ AppAsset::register($this);
         ['label' => 'О нас', 'url' => ['/site/about']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Авторизация', 'url' => ['/site/login']];
+        
     } else {
         $menuItems[] = ['label' => 'Личный кабинет', 'url' => ['/cabinet/index']];
         $menuItems[] = '<li>'
