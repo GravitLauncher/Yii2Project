@@ -27,7 +27,7 @@ $this->title = 'GravitLauncher - Главная';
 </ul>
 </p>
 <p>В Wiki по лаунчеру можно перейти в меню вверху</p>
-<p>Для авторизации в демо лаунчере пройдите регистрацию на сайте</p>
 <a class="btn btn-primary" href="?r=wiki">Начать работу</a>
+<a class="btn btn-primary" href="https://discord.gg/vZdtRHc">Discord</a>
 <a class="btn btn-primary" href="https://mirror.gravit.pro/Launcher.jar">Скачать Demo JAR</a>
 <a class="btn btn-primary" href="https://mirror.gravit.pro/Launcher.exe">Скачать Demo EXE</a>
