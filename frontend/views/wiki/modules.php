@@ -10,117 +10,27 @@ $this->params['breadcrumbs'][] = "Модули";
 ?>
 <h2>Модули</h2>
 <p>Этот раздел посвящен разработке модулей на Java</p>
-<p>Загрузка модулей происходит из папки modules. Менеджер модулей открывает по очереди все jar и смотрит на параметр Main-Class в манифесте JAR файла.</p>
-<p>Main-Class - точка входа в модуль. Он обязан расширять интерфейс Module. Требуется, что бы методы getVersion/getName возвращали корректные значения. <span class="codes">null</span> не допускается</p>
-<p><span class="codes">preInit</span> - вызывается максимально рано, когда конфигурация еще не инициализирована</p>
-<p><span class="codes">init</span> - вызывается после основного этапа инициализации, но до старта прослушки сокета</p>
-<p><span class="codes">postInit</span> - вызывается после старта прослушки сокета</p>
-<h3>ModuleContext</h3>
-<p>Во все методы инициализации передается контекст модуля. ModuleContext - это интерфейс всех возможных контекстов модуля. Можно создавать свои контексты модуля и свои загрузчики модулей</p>
-<p>Существует ServerModuleContext, LaunchServerModuleContext и ClientModuleContext. Во всех контекстах содержатся самые необходимые объекты для работы модуля.</p>
-<h3>Пример модуля</h3>
-<p>В качестве примера возьмем модуль AutoSaveSessions. Этот модуль сохраняет сессии в файл при остановке лаунчсервера и загружает их обратно при старте</p>
-<pre class="prettyprint">
-package pro.gravit.launchermodules.autosavesessions;
-
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.HashSet;
-import java.util.Set;
-
-import com.google.gson.reflect.TypeToken;
-
-import pro.gravit.launcher.Launcher;
-import pro.gravit.launcher.modules.Module;
-import pro.gravit.launcher.modules.ModuleContext;
-import pro.gravit.launchserver.LaunchServer;
-import pro.gravit.launchserver.modules.LaunchServerModuleContext;
-import pro.gravit.launchserver.socket.Client;
-import pro.gravit.utils.Version;
-import pro.gravit.utils.helper.IOHelper;
-import pro.gravit.utils.helper.LogHelper;
-
-public class AutoSaveSessionsModule implements Module {
-    public static Version version = new Version(1, 0, 0);
-    public static String FILENAME = "sessions.json";
-    public static boolean isClearSessionsBeforeSave = true;
-    public Path file;
-	private LaunchServer srv;
-
-    @Override
-    public String getName() {
-        return "AutoSaveSessions"; //Имя модуля, будет отображаться в списках и сообщении о загрузке
-    }
-
-    @Override
-    public Version getVersion() {
-        return version; //Версия модуля
-    }
-
-    @Override
-    public int getPriority() {
-        return 0; //Не используется
-    }
-
-    @Override
-    public void init(ModuleContext context) {
-
-    }
-
-    @Override
-    public void postInit(ModuleContext context1) {
-        LaunchServerModuleContext context = (LaunchServerModuleContext) context1;   //Получаем контекст
-        Path configDir = context.modulesConfigManager.getModuleConfigDir(getName());    //Получаем папку с конфигурацией нашего модуля. По умолчанию config/modulename
-        if (!IOHelper.isDir(configDir)) {
-            try {
-                Files.createDirectories(configDir);
-            } catch (IOException e) {
-                LogHelper.error(e);
-            }
-        }
-        srv = context.launchServer;
-        file = configDir.resolve(FILENAME);
-        if (IOHelper.exists(file)) {
-            LogHelper.info("Load sessions from %s", FILENAME);	//Загрузка сессий
-            Type setType = new TypeToken<HashSet<Client>>() {
-            }.getType();
-            try (Reader reader = IOHelper.newReader(file)) {
-                Set<Client> clientSet = Launcher.gsonManager.configGson.fromJson(reader, setType);
-                for (Client client : clientSet) {
-                    if (client.isAuth) client.updateAuth(srv);
-                }
-                context.launchServer.sessionManager.loadSessions(clientSet);	//Обращаемся к sessionsManager для загрузки сессий
-                LogHelper.info("Loaded %d sessions", clientSet.size());
-            } catch (IOException e) {
-                LogHelper.error(e);
-            }
-        }
-    }
-
-    @Override
-    public void preInit(ModuleContext context) {
-
-    }
-
-    @Override
-    public void close() {
-        if (isClearSessionsBeforeSave) {
-        	srv.sessionManager.garbageCollection();
-        }
-        Set<Client> clientSet = srv.sessionManager.getSessions();   //Обращаемся к sessionsManager для получения сессий
-        try (Writer writer = IOHelper.newWriter(file)) {
-            LogHelper.info("Write sessions to %s", FILENAME);
-            Launcher.gsonManager.configGson.toJson(clientSet, writer);
-            LogHelper.info("%d sessions writed", clientSet.size());
-        } catch (IOException e) {
-            LogHelper.error(e);
-        }
-    }
-}
-</pre>
-<p>Что бы узнать полный список API используйте подсказки IDEA и исходный код на GitHub</p>
-<p>Прочие примеры модулей можно найти <a href="https://github.com/GravitLauncher/LauncherModules">тут</a></p>
+<p>Загрузка модулей происходит из папки modules. Менеджер модулей открывает по очереди все jar и смотрит на параметр Module-Main-Class в манифесте JAR файла.</p>
+<p>Класс модуля - это класс, наследуемый от <b>pro.gravit.launcher.modules.LauncherModule</b> и реализующий метод init(LauncherInitContext initContext)</p>
+<p>Реализовывать логику внутри метода init <b>запрещенно</b>. Внутри метода init разрешается обращаться только к методам modulesManager и initContext, при чем при статической загрузке модуля initContext = null, а при динамической загрузке модуля через команду loadModule  он будет содержать инстанс контекста, из которого можно получить доступ к LaunchServer</p>
+<h3>События(евенты)</h2>
+<p>Всё что можно сделать из init - загружать другие модули, получать их инстансы и, самое важное, <b>подписаться на события</b>. Это единственный правильный способ реализовывать логику. Событий может быть великое множество, вы так же можете создавать свои евенты и позволять другим модулям реагировать на события вашего модуля.</p>
+<p>Встроеные общие события находятся в pro.gravit.launcher.modules.event</p>
+<p>События лаунчсервера находятся в pro.gravit.launchserver.modules.events. Именно их вы должны использовать при работе с лаунчсервером, так как внутри этих евентов вы получаете инстанс LaunchServer, центральный инстанс всего лаунчсервера, откуда можно добраться до всего</p>
+<p>События лаунчера находятся в pro.gravit.launcher.client.events. Именно их вы должны использовать при работе с лаунчером, так как они содержат основные объекты. В отличии от лаунчсервера тут нет как такового "центрального" объекта. Большинство функций статические и получение объекта для их использования не требуется. При этом если вы хотите работать с GUI на 5.1.0+ то вам необходимо еще учесть события модуля Java рантайма</p>
+<p>Для подписки на событие вы должны создать метод в вашем классе, принимающий 1 аргумент соответствующий типу евента что вы хотите обрабатывать, после чего в init вы должны вызвать registerEvent, первый аргумент - ваш метод-обработчик, второй аргумент - класс интересующего вас евента</p>
+<p>Обратите внимание при загрузке модуля через loadModule евенты, которые уже прошли не вызываются, вместо этого вам передается initContext</p>
+<h3>Общие возможности API</h3>
+<p>Хелперы - классы помощники, упростят вам рутиные задачи. Они находятся в pro.gravit.utils.helper и <b>доступны извне при включенном proguard</b>(тоесть вы можете ими пользоваться в майнкрафт клиенте, модах)</p>
+<p>Сериализация абстрактных классов или интерфейсов(AuthProvider/AuthHandler и всё что имеет type в сериализованном виде) выполняется с помощью pro.gravit.utils.ProviderMap и pro.gravit.utils.UniversalJsonAdapter <b>доступны извне при включенном proguard</b></p>
+<p>Запросы к лаунчсерверу. Находятся в pro.gravit.launcher.request(ответы в pro.gravit.launcher.events) и <b>доступны извне при включенном proguard</b>. Блокирующий(синхронный) запрос выполняется с помощью создания инстанса нужного Request и выполнения метода request(). Этот метод блокирует поток до того как ответ не придет, а следовательно может серьезно затормозить работу при непраивльном проектировании. Используйте эту возможность с осторожностью<br>Неблокирующий(асинхронный) заключается в использовании метода request класса StdWebSocketService(5.1.0+), который возвращает не результат, а CompletableFuture, на который вы должны повесить обработку успешного завершения запроса и ошибки(см документацию по CompletableFuture, там очень много всего интересного). Позволяет дождаться завершения нескольких запросов, одного из, проводить любые манипуляции и логику. Для ветки 5.0.X этот код придется реализовывать самостоятельно(см AsyncEventHandler в ранних версиях JavaRuntime) Этот метод рекомендуется к использованию</p>
+<p>Подсистема команд. Довольно обширная и интересная система, находится в pro.gravit.utils.command. Поддерживается разделение команд на категории, добавление, удаление команды и замена своей реализацией. Поддерживается автокомплит, подкоманды. Некоторое представление о возможностях этой системы можно получить изучив тесты в LauncherCore</p>
+<p>Хеширование директорий, Diff'ы. Находятся в pro.gravit.launcher.hasher и главная их задача - определять разницу между двумя директориями(недостающие/измененные и лишние файлы). На них построена система обновления</p>
+<p>Скачивание списка файлов в несколько потоков. pro.gravit.launcher.AsyncDownloader в 5.1.0+ и pro.gravit.launcher.downloader.ListDownloader в 5.0.X позволяют скачать список файлов по http в несколько потоков наиболее оптимальным способом с максимальной скоростью</p>
+<h3>Основные API лаунчсервера</h3>
+<p>Ответы на запросы. Находятся в pro.gravit.launchserver.socket.response и определяют всю логику ответа на какой либо запрос. Вы можете зарегистрировать свой Response вызвав WebSocketService.providers.register . Для отправки ошибки используется sendError(если ваш Response наследуется от SimpleResponse(рекомендуется)), для отправки результата sendObject. Для получения параметров просто создаете поле нужного типа в вашем Response, сериализация gson сделает свое дело и в момент выполнения все эти поля будут содержать данные полученные из json запроса клиента. Обратите внимание на параметр requestUUID, он используется для определения на какой запрос поступил данный ответ. При наследовании SimpleResponse и использовании sendObject/sendError класс SimpleResponse позаботится об этом за вас. В противном случае будьте внимательны и если что то происходит непонятное откройте wireshark</p>
+<p>Работа с подключенными клиентами. События. События можно отправлять и без запроса, для чего необходимо воспользоваться методами WebSocketService(launchserver.nettyServerSocketHandler.nettyServer.service), тут есть методы как для отправки события конкретному клиенту, так и всем подключенным клиентам. Если вам необходимо отправить события выборочно, просмотреть список клиентов или что то подобное - обратитесь к коду pro.gravit.launchserver.command.service.ClientsCommand(получение WebSocketFrameHandler из netty pipeline и оттуда уже доставать информацию). Некоторые ответы на запросы(то что называется RequestEvent) могут быть посланы без запроса, для чего в requestUUID необходимо записать "UUID события"(5.1.0+), который находится в RequestEvent.eventUUID. Это позволяет например удаленно авторизировать клиента, который не посылал запрос(пример из модуля UnsafeCommandPack)</p>
+<p>Сборка лаунчера. pipeline. Сборка лаунчера осуществляется на основе pipeline(pro.gravit.launchserver.binary). Pipeline - это последовательный список задач, на вход задаче подают путь к входному файлу, а на выход ожидается путь к выходному файлу. Выходной файла первой задачи является взодным файлом последующей задачи. Это позволяет преобразовывать JAR по своему усмотрению, добавив свой Task в нужное место pipeline. Так же с 5.1.0(?) поддерживается pipeline для EXE файлов.</p>
+<p>AuthProvider/AuthHandler/HWIDHandler/TextureProvider всё это можно реализовать самостоятельно, создав класс, отнаследовавшись от Handelr/Provider функционал которого вы хотите реализовать и зарегистрировав свой класс в ProviderMap соответствующего Handler/Provider.</p>
+<p>Компоненты. Компоненты - очень удобный способ конфигурировать ваш код. Помимо конфигурирования через modulesConfigManager/JsonSerializable вы можете просто создать компонент и зарегистрировтаь его, в таком случае ваш модуль будет конфигурироваться прямо из основного конфига, а вы получите удобные средства для реализации ваших идей. Код компонентов и их реализация находится в pro.gravit.launchserver.components</p>
+<p>Reconfigurable - это интерфейс создания команд для вашего Handler/Provider или компонента. Работает он на механизме подкоманд, для вызова команд Reconfigurable используется команда config (имя компонента) (команда компонента) (аргументы), поддерживается автокомплит. Вам необходимо всего лишь отнаследоваться от интерфейса Reconfigurable и реализовать метод getCommands, где прописать все ваши команды. Если у вас Provider/Handler или компонент команды зарегистрируются автоматически, если же этого не происходит вызовите launchserver.registerObject</p>
