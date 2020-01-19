@@ -39,16 +39,14 @@ $this->params['breadcrumbs'][] = "AuthHandler";
 <p>Для автоматического создания нужных полей в таблице и созданию UUID можно воспользоватся следующими SQL запросами:</p>
 <pre class="prettyprint">
 -- Добавляет недостающие поля в таблицу
--- Замените table на название таблицы
- ALTER TABLE `table`
- ADD COLUMN `uuid` CHAR(36) UNIQUE DEFAULT NULL,
- ADD COLUMN `accessToken` CHAR(32) DEFAULT NULL,
- ADD COLUMN `serverID` VARCHAR(41) DEFAULT NULL;
+ALTER TABLE users
+ADD COLUMN uuid CHAR(36) UNIQUE DEFAULT NULL,
+ADD COLUMN accessToken CHAR(32) DEFAULT NULL,
+ADD COLUMN serverID VARCHAR(41) DEFAULT NULL;
 
 -- Создаёт триггер на генерацию UUID для новых пользователей
--- Замените table на название таблицы
 DELIMITER //
-CREATE TRIGGER setUUID BEFORE INSERT ON `table`
+CREATE TRIGGER setUUID BEFORE INSERT ON users
 FOR EACH ROW BEGIN
 IF NEW.uuid IS NULL THEN
 SET NEW.uuid = UUID();
@@ -57,8 +55,33 @@ END; //
 DELIMITER ;
 
 -- Генерирует UUID для уже существующих пользователей
--- Замените table на название таблицы
-UPDATE `table` SET uuid=(SELECT UUID()) WHERE uuid IS NULL;
+UPDATE users SET uuid=(SELECT UUID()) WHERE uuid IS NULL;
+</pre>
+<h3>Способ postgresql</h3>
+<p>Для получения UUID лаунчсервер обращается к базе данных postgresql</p>
+<pre class="prettyprint">
+"auth": [
+  "handler": {
+    "type": "postgresql",
+    "postgreSQLHolder": {
+      "address": "localhost",              // адрес postgresql сервера
+      "port": 3306,                        // порт postgresql сервера
+      "username": "launchserver",          // имя пользователя
+      "password": "password",              // пароль пользователя
+      "database": "db?serverTimezone=UTC", // база данных (до ?), после находится установка серверной таймзоны
+      "timezone": "UTC"                    // установка клиентской таймзоны
+    },
+    "table": "users",                      // таблица
+    "uuidColumn": "uuid",                  // название столбца с uuid
+    "usernameColumn": "username",          // название столбца с именами пользователей
+    "accessTokenColumn": "accessToken",    // название столбца с accessToken
+    "serverIDColumn": "serverID",           // название столбца с serverID
+    "queryByUUIDSQL": "SELECT uuid, username, NULLIF(\"accessToken\", '') as \"accessToken\", NULLIF(\"serverID\", '') as \"serverID\" FROM users WHERE uuid=? LIMIT 1",
+    "queryByUsernameSQL": "SELECT uuid, username, NULLIF(\"accessToken\", '') as \"accessToken\", NULLIF(\"serverID\", '') as \"serverID\" FROM users WHERE username=? LIMIT 1",
+    "updateAuthSQL": "UPDATE users SET username=?, \"accessToken\"=?, \"serverID\"=null WHERE uuid=?",
+    "updateServerIDSQL": "UPDATE users SET \"serverID\"=? WHERE uuid=?"
+  }
+]
 </pre>
 <h3>Способ request</h3>
 <p>Для получения и обновления uuid, accessToken, serverID лаунчсервер обращается к сайту по протоколу HTTP/HTTPS<br>

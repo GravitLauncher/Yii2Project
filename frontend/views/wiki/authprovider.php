@@ -33,62 +33,56 @@ $this->params['breadcrumbs'][] = "AuthProvider";
 <h3>Способ mysql</h3>
 <p>Для проверки логина и пароля лаунчсервер обращается к базе данных mysql<br>
 <b>Этот способ НЕ подходит для сайтов с нестандартными алгоритмами хеширования</b></p>
+<b>В базе данных создайте поле permissions типа BIGINT(значение по умолчанию 0)</b></p>
 <pre class="prettyprint">
 "auth": [
   {
     "provider": {
       "type": "mysql",
       "mySQLHolder": {
-        "address": "localhost",              // адрес mysql сервера
-        "port": 3306,                        // порт mysql сервера
-        "username": "launchserver",          // имя пользователя
-        "password": "password",              // пароль пользователя
-        "database": "db?serverTimezone=UTC", // база данных (до ?), после находится установка серверной таймзоны
-        "timezone": "UTC"                    // установка клиентской таймзоны
+        "address": "localhost",               // адрес mysql сервера
+        "port": 3306,                         // порт mysql сервера
+        "username": "launchserver",           // имя пользователя
+        "password": "password",               // пароль пользователя
+        "database": "db",                     // база данных, при проблемах с timezone используйте "database": "db?serverTimezone=UTC"
+        "timezone": "UTC"                     // установка клиентской таймзоны
       },
-      "query": "SELECT login FROM users WHERE login=? AND password=MD5(?) LIMIT 1", // sql запрос, ? по порядку заменяются параметрами из queryParams (перевод: "ВЫБРАТЬ логин ИЗ ТАБЛИЦЫ users ГДЕ ЛОГИН=? И пароль=MD5(?) МАКСИМУМ 1")
-      "queryParams": [ "%login%", "%password%" ], // параметры sql запроса
-      "message": "Пароль неверный!"               // сообщение при неверном пароле
+      "query": "SELECT login, permission FROM users WHERE login=? AND password=MD5(?) LIMIT 1", // sql запрос
+      "queryParams": [ "%login%", "%password%" ],                                               // параметры sql запроса
+      "usePermission": true,
+      "message": "Пароль неверный!"                                                             // сообщение при неверном пароле
     }
   }
 ]
 </pre>
-<p>Настройка permnissions этим спосбом</p>
+<h3>Способ postgresql</h3>
+<p>Для проверки логина и пароля лаунчсервер обращается к базе данных postgresql<br>
+<b>Этот способ НЕ подходит для сайтов с нестандартными алгоритмами хеширования</b></p>
+<b>В базе данных создайте поле permissions типа bigint(значение по умолчанию 0)</b></p>
 <pre class="prettyprint">
 "auth": [
   {
     "provider": {
-      "type": "mysql",
-      "mySQLHolder": {
-        "address": "localhost",
-        "port": 3306,
-        "username": "launchserver",
-        "password": "password",
-        "database": "db?serverTimezone=UTC",
-        "timezone": "UTC"
+      "type": "postgresql",
+      "postgreSQLHolder": {
+        "address": "localhost",               // адрес postgresql сервера
+        "port": 3306,                         // порт postgresql сервера
+        "username": "launchserver",           // имя пользователя
+        "password": "password",               // пароль пользователя
+        "database": "db",                     // база данных, при проблемах с timezone используйте "database": "db?serverTimezone=UTC" (?)
+        "timezone": "UTC"                     // установка клиентской таймзоны
       },
-      "query": "SELECT login, <b>permission</b> FROM users WHERE login=? AND password=MD5(?) LIMIT 1",
-      "queryParams": [ "%login%", "%password%" ],
+      "query": "SELECT login, permission FROM users WHERE login=? AND password=MD5(?) LIMIT 1", // sql запрос
+      "queryParams": [ "%login%", "%password%" ],                                               // параметры sql запроса
       "usePermission": true,
-      "message": "Пароль неверный!"
+      "message": "Пароль неверный!"                                                             // сообщение при неверном пароле
     }
   }
 ]
 </pre>
 <h3>Способ request</h3>
 <p>Для проверки логина и пароля лаунчсервер обращается к сайту по протоколу HTTP/HTTPS</p>
-<pre class="prettyprint">
-"auth": [
-  {
-    "provider": {
-      "type": "request",
-      "url": "http://gravit.pro/auth.php?username=%login%&password=%password%&ip=%ip%", // ссылка до скрипта проверки логина-пароля
-      "response": "OK:(?&lt;username&gt;.+)" // маска ответа, если не соответствует, будет выведено сообщение с возвращенным текстом
-    }
-  }
-]
-</pre>
-<p>Настройка permissions этим способом</p>
+<p>Ответ сервера должен выглядеть так: OK:Gravit:0, где Gravit - ваш никнейм, 0 - маска permissions</p>
 <pre class="prettyprint">
 "auth": [
   {
@@ -97,6 +91,19 @@ $this->params['breadcrumbs'][] = "AuthProvider";
       "usePermission": true,
       "url": "http://gravit.pro/auth.php?username=%login%&password=%password%&ip=%ip%",
       "response": "OK:(?&lt;username&gt;.+):(?&lt;permissions&gt;.+)"
+    }
+  }
+]
+</pre>
+<p>Некоторые скрипты авторизации не поддерживают передачу permissions и их ответ выглядит как OK:Gravit, где Gravit - ваш никнейм<br>
+Вы можете использовать конфигурацию ниже на версиях до 5.1.0, однако <b>рекомендуется найти/написать/подправить скрипт, что бы он передавал permissions</b></p>
+<pre class="prettyprint">
+"auth": [
+  {
+    "provider": {
+      "type": "request",
+      "url": "http://gravit.pro/auth.php?username=%login%&password=%password%&ip=%ip%", // ссылка до скрипта проверки логина-пароля
+      "response": "OK:(?&lt;username&gt;.+)" // маска ответа, если не соответствует, будет выведено сообщение с возвращенным текстом
     }
   }
 ]
@@ -114,7 +121,6 @@ $this->params['breadcrumbs'][] = "AuthProvider";
   }
 ]
 </pre>
-<p>При этом способе настройка permissions не выполняется, так как по умолчанию сервер обязан передавать permissions<br>
 Запрос:</p>
 <pre class="prettyprint">
 {
@@ -151,3 +157,16 @@ $this->params['breadcrumbs'][] = "AuthProvider";
   }
 ]
 </pre>
+<h2>Permissions. Маска</h2>
+<p>Маска permissions представляет собой обычное 64-битное число(long в Java/BIGINT в mySQL), каждый бит которого отвечает за определенную привилегию.<br>
+Что бы получить право ADMIN+SERVER вы должны сложить(выполнить побитовое ИЛИ если точнее, в простых случаях эквивалентно сложению) числа, соответствующие правам ADMIN и SERVER</p>
+<ul>
+<li>Ничего - 0</li>
+<li>canAdmin - 1</li>
+<li>canServer - 2 (устаревший)</li>
+<li>canUSR1 - 4</li>
+<li>canUSR2 - 8</li>
+<li>canUSR3 - 16</li>
+<li>canBot - 32 (устаревший)</li>
+</ul>
+<p>Проверка в лаунчере выполняется путем выполнения побитового И, например если для опционального мода требуется право 9(canUSR2+canAdmin) то подойдут 9, 11, 13, 15 и тд</p>

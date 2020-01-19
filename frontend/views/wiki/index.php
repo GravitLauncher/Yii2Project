@@ -5,13 +5,14 @@
 $this->title = 'Wiki - GravitLauncher';
 $this->params['breadcrumbs'][] = "Wiki";
 ?>
-<p><b>GravitLauncher - профессиональный лаунчер с лучшей защитой</b></p>
+<p><b>GravitLauncher - профессиональный лаунчер Minecraft с лучшей защитой</b></p>
 <h2>Начало работы</h2>
 <h3>Вариант 1: Скачивание релиза</h3>
 <p>Скачиваем последний релиз с <a class="link-animated" href="https://gitlab.com/gravitlauncherteam/Launcher/pipelines">GitLab</a><br>
     Он выглядит так: <br>
     <img src="https://cdn.discordapp.com/attachments/612736409677070338/635566914189393940/v.png"><br>
     (С пометкой latest, а так же ветка должна быть <b>master</b>)<br>
+    Так же встречаются ветки hotfix/X.X.X, если они первее master'а - используйте их<br>
     Распаковываем в нужную папку</p>
 <p>Версии до 5.0.0b6 можно скачать на <a class="link-animated" href="https://github.com/GravitLauncher/Launcher/releases">GitHub</a>, но их поддержка уже прекращена</p>
 <p>Запускаем лаунчсервер командой <span class="codes">java -javaagent:LaunchServer.jar -jar LaunchServer.jar</span></p>
