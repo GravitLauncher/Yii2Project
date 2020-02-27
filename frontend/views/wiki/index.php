@@ -115,7 +115,7 @@ $this->params['breadcrumbs'][] = "Wiki";
     },
     "binds": [ //Список адресов для bind
       {
-        "address": "0.0.0.0", //Обычно это 127.0.0.1
+        "address": "0.0.0.0",
         "port": 9274
       }
     ]
