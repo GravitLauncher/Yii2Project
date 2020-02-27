@@ -105,17 +105,17 @@ $this->params['breadcrumbs'][] = "Wiki";
   },
   "netty": {
     "clientEnabled": true, //Не используется в 5.0, всегда true
-    "launcherURL": "http://localhost:9274/Launcher.jar", //URL для скачивания jar версии лаунчера
-    "downloadURL": "http://localhost:9274/%dirname%/", //URL для скачивания диреткории dirname
-    "launcherEXEURL": "http://localhost:9274/Launcher.exe", //URL для скачивания exe версии лаунчера
-    "address": "ws://localhost:9274/api", //Адрес API, по которому будет происходить авторизация и весь оставшийся обмен данными
+    "launcherURL": "http://localhost:9274/Launcher.jar", //URL для скачивания jar версии лаунчера, если настроено проксирование адрес https://launcher.mysite.ru/Launcher.jar
+    "downloadURL": "http://localhost:9274/%dirname%/", //URL для скачивания диреткории dirname, если настроено проксирование адрес https://launcher.mysite.ru/%dirname%/
+    "launcherEXEURL": "http://localhost:9274/Launcher.exe", //URL для скачивания exe версии лаунчера, если настроено проксирование адрес https://launcher.mysite.ru/Launcher.exe
+    "address": "ws://localhost:9274/api", //Адрес API, по которому будет происходить авторизация и весь оставшийся обмен данными, если настроено проксирование адрес wss://launcher.mysite.ru/api обратите внимание, не ws а wss
     "performance": {
       "bossThread": 2, //Колличество потоков, принимающих соеденение
       "workerThread": 8 //Колличество потоков, обрабатывающих запросы
     },
     "binds": [ //Список адресов для bind
       {
-        "address": "0.0.0.0",
+        "address": "0.0.0.0", //Обычно это 127.0.0.1
         "port": 9274
       }
     ]
