@@ -17,7 +17,6 @@ $this->params['breadcrumbs'][] = "Wiki";
     <b>Ставьте только те модули, что вам действительно необходимы. Большинство модулей требует дополнительной конфигурации</b><br>
     Модули, заканчивающиеся на <span class="codes">_module</span> - для лаунчсервера, на <span class="codes">_lmodule</span> - для лаунчера(требутется LauncherModuleLoader), на <span class="codes">_swmodule</span> для ServerWrapper'а<br>
     Распаковываем в нужную папку</p>
-<p>Версии до 5.0.0b6 можно скачать на <a class="link-animated" href="https://github.com/GravitLauncher/Launcher/releases">GitHub</a>, но их поддержка уже прекращена</p>
 <p>Запускаем лаунчсервер командой <span class="codes">java -javaagent:LaunchServer.jar -jar LaunchServer.jar</span></p>
 <h3>Вариант 2: Сборка из исходников</h3>
     <p>Для сборки вам потребуется: JDK, JavaFX библиотеки той же версии что и JDK, Git или wget/curl + unzip</p>
@@ -190,6 +189,20 @@ $this->params['breadcrumbs'][] = "Wiki";
   "startScript": "./start.sh" //Скрипт запуска лаунчсервера(используется только в команде restart)
 }
 </pre>
+<h2>Сборка лаунчера на 5.1.0+</h2>
+<p>Если вы соберете лаунчер командой build сразу после настройки лаунчсервера - вы можете получить ошибку "GUI часть лаунчера не найдена"</p>
+<p>Это происходит потому, что начиная с 5.1.0 рантайм(GUI часть лаунчера) отделена от самого лаунчера и находится в отдельном репозитории.<br>
+<b>Ссылка на репозиторий рантайма</b>: <a href="https://gitlab.com/gravitlauncherteam/launcherjavaruntime">GitLab</a><br>
+<b>Ссылка на CI рантайма</b>: <a href="https://gitlab.com/gravitlauncherteam/launcherjavaruntime/pipelines">GitLab Pipelines</a><br>
+Инструкция по установке нового рантайма:</p>
+<ol>
+<li>Скачайте последний билд рантайма с GitLab pipelines по ссылкам выше. Вы должны получить runtime.zip, содержащий дизайн и локализацию(fxml/css/png/runtime_**.properties) и JavaRuntime-xxxx.jar, содержащий код отображения этого дизайна и взаимодействия с пользователем.</li>
+<li>Скопируйте содержимое архива runtime.zip с css/fxml/png в папку runtime лаунчсервера</li>
+<li>Установите модуль LauncherModuleLoader_module на лаунчсервер в папку modules</li>
+<li>Скопируйте файл JavaRuntime-xxxx.jar в папку launcher-modules(если её нет - создайте)</li>
+<li>Перезапустите лаунчсервер и пропишите build</li>
+<li>Убедитесь, что сборка прошла без ошибок и лаунчер успешно запускается и отображает GUI</li>
+</ol>
 <h2>Команды LaunchServer</h2>
 <p>Простейшие команды, которые понядобятся в первую очередь:</p>
 <pre class="prettyprint">

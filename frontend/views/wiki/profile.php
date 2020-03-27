@@ -39,7 +39,6 @@ $this->params['breadcrumbs'][] = "Profiles";
   ],
   "updateOptional": [], //Опциональные моды, см ниже отдельный раздел
   "updateFastCheck": true, //Проверка только размеров, без сравнения хешей
-  "useWhitelist": false, //Использовать белый список
   "mainClass": "net.minecraft.launchwrapper.Launch", //Main Class клиента
   "jvmArgs": [ //Аргументы JVM
     "-Dfml.ignorePatchDiscrepancies\u003dtrue",
@@ -56,13 +55,13 @@ $this->params['breadcrumbs'][] = "Profiles";
     "minecraft.jar",
     "libraries"
   ],
+  "altClassPath": [], //альтернативный ClassPath. Указанные здесь файлы будут загружены другим, отличным от classLoaderConfig загрузчиком классов(как правило SystemClassLoader). Используется только некоторыми клиентами
   "clientArgs": [ //Аргументы клиента
     "--tweakClass",
     "net.minecraftforge.fml.common.launcher.FMLTweaker",
     "--tweakClass",
     "com.mumfrey.liteloader.launch.LiteLoaderTweaker"
   ],
-  "whitelist": [], //Белый список игроков, включается useWhitelist
   "securityManagerConfig": "CLIENT", //Используемый SecurityManager для клиента
   "classLoaderConfig": "LAUNCHER" //Используемый тип класслоадера для клиента
 }
@@ -93,12 +92,14 @@ $this->params['breadcrumbs'][] = "Profiles";
        "subTreeLevel": 2  //Смещение относительно первого мода. Используется для создания визуального отображения дерева зависимостей
     },
     {
-       "type": "FILE",
-       "list": ["mods/clientfixer-1.0.jar"],
-       "info": "Мод, исправляющий шрифты",
+       "type": "JVMARGS",
+       "list": ["--add-modules", "jdk.unsupported"],
+       "triggers": [{"type": "JAVA_VERSION", "compareMode": 1, "need": true, "value": 8}], //Триггеры, о них ниже
+       "info": "Аргументы Java9+",
+       "visible": false,
        "permissions": 0,
        "visible": true,
-       "name": "ClientFixer"
+       "name": "Java9Args"
     },
     {
        "type": "FILE",
@@ -110,3 +111,34 @@ $this->params['breadcrumbs'][] = "Profiles";
     }
   ],
 </pre>
+<h3>Триггеры в опциональных модах</h3>
+<p>Триггеры - условия, при которых опциональный мод будет включен без участия пользователя автоматически.<br>Первый параметр - type:</p>
+<ul>
+<li>JAVA_VERSION - версия Java, с которой запущен лаунчер. Принимает значения 8,9,11 и т.д.</li>
+<li>JAVA_BITS - разрядность Java, с которой запущен лаунчер. Принимает значения 32 и 64</li>
+<li>OS_BITS - разрядность ОС, с которой запущен лаунчер. Принимает значения 32 и 64</li>
+<li>OS_TYPE - тип ОС, с которой запущен лаунчер. Так как значение может быть только числом приняты следующие соответствия ОС-ЧИСЛО:<ul>
+<li>0 - Windows(MUSTDIE)</li>
+<li>1 - Linux</li>
+<li>2 - MacOS</li>
+</ul></li>
+</ul>
+<p>Второй параметр - compareMode. Он соответствует одному из трех знаков сравнения</p>
+<ul>
+<li>0 - знак равенства</li>
+<li>Любое положительное число - знак больше(строгий)</li>
+<li>Любое отрицательное число - знак меньше(строгий)</li>
+</ul>
+<p>Третий параметр - value. Это значение, с которым будет сравниваться параметр</p>
+<p>Четвертый параметр - need. Это особый флаг, означающий "опциональный мод не может работать если этот триггер не сработал"</p>
+<p>Если триггеров с need нет - опциональный мод включится если сработает ХОТЯ БЫ ОДИН триггер</p>
+<p>Если есть ХОТЬ ОДИН триггер с NEED - опциональный мод включится только если ВСЕ ТРИГГЕРЫ С NEED сработают. При этом если хоть один триггер с need не сработает:<ol>
+<li>Если опциональный мод был включен по умолчанию - он будет выключен</li>
+<li>Если опциональный мод был видимым по умолчанию - он станет невидимым</li>
+</ol></p>
+<p>Примеры тригеров</p>
+<ul>
+<li>{"type": "JAVA_VERSION", "compareMode": 1, "need": true, "value": 8} - выполняется если версия Java > 8</li>
+<li>{"type": "OS_TYPE", "compareMode": 0, "need": true, "value": 0} - выполняется если ОС Windows</li>
+<li>{"type": "JAVA_BITS", "compareMode": 0, "need": true, "value": 64} - выполняется если Java, с которой запущен лаунчер 64 бит</li>
+</ul>
