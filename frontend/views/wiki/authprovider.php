@@ -7,7 +7,7 @@ $this->params['breadcrumbs'][] = "AuthProvider";
 ?>
 
 <h2>Настройка AuthProvider</h2>
-<h3>Способ accept</h3>
+<h3>Способ accept <div class="gtag gtag-easy">Только для ознакомления</div></h3>
 <p>Принимает любые пары логин-пароль</p>
 <pre class="prettyprint">
 "auth": [
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = "AuthProvider";
   }
 ]
 </pre>
-<h3>Способ reject</h3>
+<h3>Способ reject <div class="gtag gtag-easy">Это просто</div></h3>
 <p>Отклоняет любые пары логин-пароль</p>
 <pre class="prettyprint">
 "auth": [
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = "AuthProvider";
   }
 ]
 </pre>
-<h3>Способ mysql</h3>
+<h3>Способ mysql <div class="gtag gtag-easy">Это просто</div></h3>
 <p>Для проверки логина и пароля лаунчсервер обращается к базе данных mysql<br>
 <b>Этот способ НЕ подходит для сайтов с нестандартными алгоритмами хеширования</b></p>
 <b>В базе данных создайте поле permissions типа BIGINT(значение по умолчанию 0)</b></p>
@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = "AuthProvider";
   }
 ]
 </pre>
-<h3>Способ postgresql</h3>
+<h3>Способ postgresql <div class="gtag gtag-medium">Средний уровень</div></h3>
 <p>Для проверки логина и пароля лаунчсервер обращается к базе данных postgresql<br>
 <b>Этот способ НЕ подходит для сайтов с нестандартными алгоритмами хеширования</b></p>
 <b>В базе данных создайте поле permissions типа bigint(значение по умолчанию 0)</b></p>
@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = "AuthProvider";
   }
 ]
 </pre>
-<h3>Способ request</h3>
+<h3>Способ request <div class="gtag gtag-easy">Это просто</div></h3>
 <p>Для проверки логина и пароля лаунчсервер обращается к сайту по протоколу HTTP/HTTPS</p>
 <p>Ответ сервера должен выглядеть так: OK:Gravit:0, где Gravit - ваш никнейм, 0 - маска permissions</p>
 <pre class="prettyprint">
@@ -108,7 +108,7 @@ $this->params['breadcrumbs'][] = "AuthProvider";
   }
 ]
 </pre>
-<h3>Способ json</h3>
+<h3>Способ json <div class="gtag gtag-medium">Средний уровень</div></h3>
 <p>Для проверки логина и пароля лаунчсервер обращается к сайту по протоколу HTTP/HTTPS, но в отличии от request делает POST запрос с json данными внутри</p>
 <pre class="prettyprint">
 "auth": [
@@ -143,7 +143,7 @@ $this->params['breadcrumbs'][] = "AuthProvider";
   "error": "Неверный логин или пароль"
 }
 </pre>
-<h3>Способ hibernate</h3>
+<h3>Способ hibernate <div class="gtag gtag-medium">Средний уровень</div></h3>
 <p>Hibernate — самая популярная реализация спецификации JPA, предназначенная для решения задач объектно-реляционного отображения (ORM)<br>
 Для проверки логина и пароля лаунчсервер обращается к любой базе данных<br>
 <b>Для подключения к базам данных, в libraries необходимо положить библиотеку для поддержки соответствующей базы данных</b><br>
@@ -157,7 +157,7 @@ $this->params['breadcrumbs'][] = "AuthProvider";
   }
 ]
 </pre>
-<h2>Permissions. Маска</h2>
+<h2>Permissions. Маска <div class="gtag gtag-medium">Средний уровень</div></h2>
 <p>Маска permissions представляет собой обычное 64-битное число(long в Java/BIGINT в mySQL), каждый бит которого отвечает за определенную привилегию.<br>
 Что бы получить право ADMIN+SERVER вы должны сложить(выполнить побитовое ИЛИ если точнее, в простых случаях эквивалентно сложению) числа, соответствующие правам ADMIN и SERVER</p>
 <ul>

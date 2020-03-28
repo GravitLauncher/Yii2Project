@@ -127,3 +127,56 @@ span.codes {
     background: #bdbdbd;
     border-radius: 2px;
 }
+
+.gtag {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 700;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px;
+}
+.gtag::before {
+    content: '';
+    width: 22px;
+    height: 22px;
+    margin-right: 6px;
+}
+
+.gtag-deprecated {
+    background-color: #faad14;
+}
+.gtag-deprecated::before {
+    background-image: url('/icons/error.svg');
+}
+.gtag-important {
+    background-color: #f5222d;
+}
+.gtag-important::before {
+    background-image: url('/icons/star.svg');
+}
+.gtag-info {
+    background-color: #722ed1;
+}
+.gtag-info::before {
+    background-image: url('/icons/push-pin.svg');
+}
+.gtag-easy {
+    background-color: #52c41a;
+}
+.gtag-easy::before {
+    background-image: url('/icons/joke.svg');
+}
+.gtag-medium {
+    background-color: #1890ff;
+}
+.gtag-medium::before {
+    background-image: url('icons/straight.svg');
+}
+.gtag-hard {
+    background-color: #f5222d;
+}
+.gtag-hard::before {
+    background-image: url('icons/sos.svg');
+}

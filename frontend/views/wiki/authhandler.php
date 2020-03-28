@@ -4,7 +4,7 @@ $this->title = 'AuthHandler - Wiki - GravitLauncher';
 $this->params['breadcrumbs'][] = "AuthHandler";
 ?>
 <h2>Настройка AuthHandler</h2>
-<h3>Способ memory</h3>
+<h3>Способ memory <div class="gtag gtag-easy">Это просто</div></h3>
 <p>UUID получается путем преобразования бинарного представления ника<br>
 Каждому нику будет соответствовать ровно один UUID</p>
 <pre class="prettyprint">
@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = "AuthHandler";
   }
 ]
 </pre>
-<h3>Способ mysql</h3>
+<h3>Способ mysql <div class="gtag gtag-easy">Это просто</div></h3>
 <p>Для получения UUID лаунчсервер обращается к базе данных mysql</p>
 <pre class="prettyprint">
 "auth": [
@@ -57,7 +57,7 @@ DELIMITER ;
 -- Генерирует UUID для уже существующих пользователей
 UPDATE users SET uuid=(SELECT UUID()) WHERE uuid IS NULL;
 </pre>
-<h3>Способ postgresql</h3>
+<h3>Способ postgresql <div class="gtag gtag-medium">Средний уровень</div></h3>
 <p>Для получения UUID лаунчсервер обращается к базе данных postgresql</p>
 <pre class="prettyprint">
 "auth": [
@@ -83,7 +83,7 @@ UPDATE users SET uuid=(SELECT UUID()) WHERE uuid IS NULL;
   }
 ]
 </pre>
-<h3>Способ request</h3>
+<h3>Способ request <div class="gtag gtag-medium">Средний уровень</div> <div class="gtag gtag-deprecated">Устаревшее</div></h3>
 <p>Для получения и обновления uuid, accessToken, serverID лаунчсервер обращается к сайту по протоколу HTTP/HTTPS<br>
 В скобках указаны параметры запроса</p>
 <pre class="prettyprint">
@@ -101,9 +101,9 @@ UPDATE users SET uuid=(SELECT UUID()) WHERE uuid IS NULL;
   }
 ]
 </pre>
-<h3>Способ json</h3>
+<h3>Способ json <div class="gtag gtag-medium">Средний уровень</div></h3>
 <!-- TODO -->
-<h3>Способ hibernate</h3>
+<h3>Способ hibernate <div class="gtag gtag-medium">Средний уровень</div></h3>
 <p>Hibernate — самая популярная реализация спецификации JPA, предназначенная для решения задач объектно-реляционного отображения (ORM)<br>
 Для проверки логина и пароля лаунчсервер обращается к любой базе данных<br>
 <b>Для подключения к базам данных, в libraries необходимо положить библиотеку для поддержки соответствующей базы данных</b><br>

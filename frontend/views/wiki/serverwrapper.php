@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = "ServerWrapper";
 <h2>Поддерживаемые ядра серверов</h2>
 <p>Протестированные ядра: Sponge, Thermos, KCaldron, UltraMine, Waterfall/BungeeCoed, Spigot/Bukkit. Некоторые можно скачать тут: <a class="link-animated" href="https://mirror.gravit.pro/servers/">mirror.gravit.pro</a><br></p>
 <p>Непротестированы: Atom и другие</p>
-<h2>Скрипт развертывания ServerWrapper</h2>
+<h2>Скрипт развертывания ServerWrapper <div class="gtag gtag-easy">Это просто</div></h2>
 <p>В 5.0.0 введен новый способ установки ServerWrapper'а - с помощью скрипта установки. Для его запуска выполните:</p>
 <pre class="prettyprint">
     java -jar ServerWrapper.jar setup
@@ -59,7 +59,7 @@ java -cp ServerWrapper.jar:{ClassPath вашего сервера} pro.gravit.la
   "env": "STD" //Окружение
 }
 </pre>
-<h3>Добавление права canServer в jsonPermissionsHandler</h3>
+<h3>Добавление права canServer в jsonPermissionsHandler <div class="gtag gtag-deprecated">Устаревшее</div></h3>
 <p><b>Для 5.0.11 и 5.1.0+ это делать не требуется</b></p>
 <p>Добавьте это в <span>permissions.json</span></p>
 <pre class="prettyprint">

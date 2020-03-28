@@ -8,7 +8,7 @@
 $this->title = 'Модули - Wiki - GravitLauncher';
 $this->params['breadcrumbs'][] = "Модули";
 ?>
-<h2>Модули</h2>
+<h2>Модули <div class="gtag gtag-hard">Программистам</div></h2>
 <p>Этот раздел посвящен разработке модулей на Java</p>
 <p>Загрузка модулей происходит из папки modules. Менеджер модулей открывает по очереди все jar и смотрит на параметр Module-Main-Class в манифесте JAR файла.</p>
 <p>Класс модуля - это класс, наследуемый от <b>pro.gravit.launcher.modules.LauncherModule</b> и реализующий метод init(LauncherInitContext initContext)</p>
