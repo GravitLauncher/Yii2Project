@@ -172,11 +172,11 @@ span.codes {
     background-color: #1890ff;
 }
 .gtag-medium::before {
-    background-image: url('icons/straight.svg');
+    background-image: url('/icons/straight.svg');
 }
 .gtag-hard {
     background-color: #f5222d;
 }
 .gtag-hard::before {
-    background-image: url('icons/sos.svg');
+    background-image: url('/icons/sos.svg');
 }
