@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = "AuthProvider";
       "type": "request",
       "usePermission": true,
       "url": "http://gravit.pro/auth.php?username=%login%&password=%password%&ip=%ip%",
-      "response": "OK:(?&lt;username&gt;.+):(?&lt;permissions&gt;.+)"
+      "response": "OK:(?&lt;username&gt;.+):(?&lt;permission&gt;.+)"
     }
   }
 ]
