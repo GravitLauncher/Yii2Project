@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = "Сборка клиента";
 <ul>
 <li>Вам необходимо будет скопировать файл authlib-clean.jar отсюда ( <a href="https://github.com/GravitLauncher/Launcher/raw/master/compat/authlib/authlib-clean.jar">master</a> ) в папку libraries клиента</li>
 <li>Скопируйте из артефактов сборки файл LauncherAuthlib.jar в папку libraries клиента</li>
-<li>Скачайте клиентский лаунчвраппер и <b>замените</b> предыдущий лаунчвраппер в папке librares клиента.(<a href="https://yadi.sk/d/yVfBSzBUEGB3zQ">ссылка</a> на момент публикации)(<u>только клиент</u>) Так как launchwrapper может постоянно фиксится под 5.1.0 следите за discord сервером</li>
+<li>Скачайте клиентский лаунчвраппер и <b>замените</b> предыдущий лаунчвраппер в папке librares клиента.(<a href="https://mirror.gravit.pro/compat/launchwrapper-1.12-5.1.x-clientonly.jar">ссылка</a> на момент публикации)(<u>только клиент</u>) Так как launchwrapper может постоянно фиксится под 5.1.0 следите за discord сервером</li>
 </ul>
 <p>Для сборки нестандартного клиента выполните аналогичные действия. Если эта версия не использует launchwrapper(к примеру Fabric) обратитесь в Discord сервер, будем вместе решать проблему</p>
 <p>UPD: При использовании Fabric добавьте путь к библиотекам google-commons и jimfs в altClassPath. Объяснение: jimfs использует технологию сервисов(ServiceLoader) и требует, что бы он был загружен системным загрузчиком классов(SystemClassLoader), в противном случае JVM не сможет правильно зарегистрировать обработчик URL'ов jimfs</p>
