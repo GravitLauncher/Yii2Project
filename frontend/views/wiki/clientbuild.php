@@ -15,10 +15,22 @@ $this->params['breadcrumbs'][] = "Сборка клиента";
 <ul>
 <li>Вам необходимо будет скопировать файл authlib-clean.jar отсюда ( <a href="https://github.com/GravitLauncher/Launcher/raw/master/compat/authlib/authlib-clean.jar">master</a> ) в папку libraries клиента</li>
 <li>Скопируйте из артефактов сборки файл LauncherAuthlib.jar в папку libraries клиента</li>
-<li>Скачайте клиентский лаунчвраппер и <b>замените</b> предыдущий лаунчвраппер в папке librares клиента.(<a href="https://mirror.gravit.pro/compat/launchwrapper-1.12-5.1.x-clientonly.jar">ссылка</a> на момент публикации)(<u>только клиент</u>) Так как launchwrapper может постоянно фиксится под 5.1.0 следите за discord сервером</li>
 </ul>
-<p>Для сборки нестандартного клиента выполните аналогичные действия. Если эта версия не использует launchwrapper(к примеру Fabric) обратитесь в Discord сервер, будем вместе решать проблему</p>
-<p>UPD: При использовании Fabric добавьте путь к библиотекам google-commons и jimfs в altClassPath. Объяснение: jimfs использует технологию сервисов(ServiceLoader) и требует, что бы он был загружен системным загрузчиком классов(SystemClassLoader), в противном случае JVM не сможет правильно зарегистрировать обработчик URL'ов jimfs</p>
+<p>Для сборки клиента с <b>Forge</b> также выполните следущее:</p>
+<ul>
+  <li>Скачайте клиентский лаунчвраппер и <b>замените</b> предыдущий лаунчвраппер в папке librares клиента.(<a href="https://mirror.gravit.pro/compat/launchwrapper-1.12-5.1.x-clientonly.jar">ссылка</a> на момент публикации)(<u>только клиент</u>) Так как launchwrapper может постоянно фиксится под 5.1.0 следите за discord сервером</li>
+</ul>
+<p>Для сборки клиента с <b>Fabric</b> выполните следущее:</p>
+<ul>
+  <li>Добавьте путь к библиотекам guava и jimfs в altClassPath. Например:
+    <pre class="prettyprint">
+"altClassPath": [
+  "libraries/com/google/jimfs/jimfs/1.1/jimfs-1.1.jar",
+  "libraries/com/google/guava/guava/21.0/guava-21.0.jar"
+]</pre>
+    <p>Объяснение: jimfs использует технологию сервисов(ServiceLoader) и требует, что бы он был загружен системным загрузчиком классов(SystemClassLoader), в противном случае JVM не сможет правильно зарегистрировать обработчик URL'ов jimfs</p>
+  </li>
+</ul>
 <h3>Подпись всего клиента <div class="gtag gtag-hard">Сложный уровень</div></h3>
 <p>Начиная с 5.1.0 появилась возможность подписывать не только лаунчер, а весь клиент целиком. Подпись всего клиента осуществляется командой signdir и доступна только если у вас настроен свой сертификат(автосгенерированный не подойдет). Перед началом подписи убедитесь что вы настроили раздел sign Лаунчсервера</p>
 <ol>
