@@ -236,7 +236,7 @@ $this->params['breadcrumbs'][] = "Wiki";
   "startScript": "./start.sh" //Скрипт запуска лаунчсервера(используется только в команде restart)
 }
 </pre>
-<h2 name="runtime_guide">Сборка лаунчера на 5.1.0+ <div class="gtag gtag-important">Важно</div></h2>
+<h2><a name="runtime_guide"></a>Сборка лаунчера на 5.1.0+ <div class="gtag gtag-important">Важно</div></h2>
 <p>Если вы соберете лаунчер командой build сразу после настройки лаунчсервера - вы можете получить ошибку "GUI часть лаунчера не найдена"</p>
 <p>Это происходит потому, что начиная с 5.1.0 рантайм(GUI часть лаунчера) отделена от самого лаунчера и находится в отдельном репозитории.<br>
 <b>Ссылка на репозиторий рантайма</b>: <a href="https://github.com/GravitLauncher/LauncherRuntime">GitHub</a> <a href="https://gitlab.com/gravitlauncherteam/launcherjavaruntime">GitLab (УСТАРЕВШЕЕ)</a><br>
