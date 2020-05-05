@@ -6,7 +6,7 @@ $this->title = 'HWIDHandler - Wiki - GravitLauncher';
 $this->params['breadcrumbs'][] = "HWIDHandler";
 ?>
 
-<h2>Настройка HWIDHandler</h2>
+<h2>Настройка HWIDHandler (только для 5.0.11 и ниже)</h2>
 <h3>Способ accept</h3>
 <p>Принимает любые hwid и никуда их не записывает. Банить не получится</p>
 <pre class="prettyprint">

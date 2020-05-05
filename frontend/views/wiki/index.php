@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = "Wiki";
 <ol style="font-size: 24px;">
 <li><a href="?r=wiki%2Fpage&page=startguide_install">Устанавливаем лаунчсервер</a> (выберите один из способов)</li>
 <li><a href="?r=wiki%2Fpage&page=startguide_runtime">Устанавливаем рантайм</a> (если это требуется выбранным способом установки)</li>
-<li><a href="?r=wiki%2Fpage&page=startguide_conifg">Настраиваем конфигурацию лаунчсервера</a></li>
+<li><a href="?r=wiki%2Fpage&page=startguide_config">Настраиваем конфигурацию лаунчсервера</a></li>
 <li>Настраиваем <a href="?r=wiki%2Fpage&page=authprovider">AuthProvider</a> и <a href="?r=wiki%2Fpage&page=authhandler">AuthHandler</a></li>
 <li>Собираем <a href="?r=wiki%2Fpage&page=clientbuild">клиент</a></li>
 <li>Подключаем ваш майнкрафт сервер с помощью <a href="?r=wiki%2Fpage&page=serverwrapper">ServerWrapper</a></li>
