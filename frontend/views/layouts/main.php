@@ -42,6 +42,7 @@ AppAsset::register($this);
             ['label' => 'Настройка AuthProvider', 'url' => ['/wiki/page', 'page' => 'authprovider']],
             ['label' => 'Настройка AuthHandler', 'url' => ['/wiki/page', 'page' => 'authhandler']],
             ['label' => 'Настройка ServerWrapper', 'url' => ['/wiki/page', 'page' => 'serverwrapper']],
+            ['label' => 'Настройка ProtectHandler', 'url' => ['/wiki/page', 'page' => 'protecthandler']],
             ['label' => 'Настройка профиля', 'url' => ['/wiki/page', 'page' => 'profile']],
             ['label' => 'Проксирование/Netty', 'url' => ['/wiki/page', 'page' => 'nettyconfig']],
             ['label' => 'Сборка клиента', 'url' => ['/wiki/page', 'page' => 'clientbuild']],
