@@ -98,7 +98,6 @@ $this->params['breadcrumbs'][] = "Profiles";
        "info": "Аргументы Java9+",
        "visible": false,
        "permissions": 0,
-       "visible": true,
        "name": "Java9Args"
     },
     {
